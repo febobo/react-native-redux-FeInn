@@ -16,7 +16,7 @@ export default class Article extends Component {
   render (){
     return (
       <View style={[styles.container]}>
-        <Text style={{fontSize:30,color:'#837'}}>Hello React-native</Text>
+        <Text style={{fontSize:30,color:'#fff'}}>Hello React-native</Text>
       </View>
     )
   }
