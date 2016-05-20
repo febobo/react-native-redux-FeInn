@@ -36,14 +36,14 @@ export default class TabView extends Component {
         </Icon.TabBarItem>
         <Icon.TabBarItem
           title="文章"
-          iconName="ios-book"
-          selectedIconName="ios-home"
+          iconName="ios-book-outline"
+          selectedIconName="ios-book"
           selected={false}
         >
         </Icon.TabBarItem>
         <Icon.TabBarItem
           title="福利"
-          iconName="ios-heart"
+          iconName="ios-heart-outline"
           selectedIconName="ios-heart"
           selected={false}
         >

@@ -18,26 +18,7 @@ export default class App extends Component {
       selectedTab: 'home',
     };
   }
-
-  _renderContent(color, pageText) {
-    if (!this.state.gearIcon) {
-      return false;
-    }
-    console.log(color , pageText)
-    // const props = { color, pageText };
-    // return (
-    //   <NavigatorIOS
-    //     style={styles.navigator}
-    //     initialRoute={{
-    //       component: ColoredView,
-    //       passProps: props,
-    //       title: pageText,
-    //       rightButtonIcon: this.state.gearIcon,
-    //     }}
-    //   />
-    // );
-  }
-
+  
   render (){
     return (
       <Provider store={store}>
