@@ -1,7 +1,7 @@
 import * as types from '../actions/ActionTypes';
 
 export default function Essence (state={} , action={}){
-  switch (types.type) {
+  switch (action.type) {
     case types.INDEX_LIST:
       return Object.assign(
         {} , state , action
