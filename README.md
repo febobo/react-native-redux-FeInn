@@ -13,4 +13,7 @@
 
 ![使用Navigator](http://g.recordit.co/Fx68Wr8kYw.gif)
 
+### PS
+#### 仓库会持续更新，欢迎提出您宝贵的建议共同成长
+
 
