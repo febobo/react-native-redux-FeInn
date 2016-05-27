@@ -54,7 +54,16 @@ export default class Essence extends Component {
             {rowData.title}
           </Text>
           <View style={[styles.articleDec]}>
-            <Text style={{flex:1}}>131/3133</Text>
+            <View style={{flex:2,flexDirection:'row',}}>
+              <View style={{flexDirection:'row', justifyContent : 'center'}} >
+                <Icon name="ios-eye-outline" size={22} color="#333" />
+                <Text style={[styles.dec]}>{rowData.visit_count}</Text>
+              </View>
+              <View style={{flexDirection:'row', justifyContent : 'center'}} >
+                <Icon name="ios-text-outline" size={22} color="#333" />
+                <Text style={[styles.dec]}>{rowData.reply_count}</Text>
+              </View>
+            </View>
             <View style={{flex:2,flexDirection:'row',alignItems : 'center'}}>
               <Text style={[styles.tag]}>{rowData.tab}</Text>
               {
@@ -110,8 +119,13 @@ const styles = StyleSheet.create({
     flexDirection : 'row',
     height : 80
   },
+  dec : {
+    lineHeight:20,
+    marginHorizontal : 5
+  },
   tag : {
-    marginRight : 4
+    color : '#4a2',
+    marginHorizontal : 3
   },
   article : {
     width : 50,
