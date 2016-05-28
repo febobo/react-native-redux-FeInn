@@ -44,6 +44,7 @@ export default class TabView extends Component {
           selectedIconName="ios-home"
           selected={this.isActive('essence')}
           onPress={()=>{tabChange('essence')}}
+          color={'red'}
         >
         <Essence {...this.props} />
         </Icon.TabBarItem>

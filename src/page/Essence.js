@@ -6,7 +6,7 @@ import {
   View ,
   Text,
   StyleSheet,
-  TouchableHighlight,
+  TouchableOpacity,
   NavigatorIOS,
   ListView,
   Image
@@ -16,6 +16,7 @@ import HTMLView from 'react-native-htmlview';
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
 import Article from './Article'
+import Detail from './Detail'
 
 export default class Essence extends Component {
   constructor (props){
@@ -32,14 +33,33 @@ export default class Essence extends Component {
     console.log(this)
     navigator.push({
       name : '文章',
-      component : Article,
+      component : Detail,
+      params : {
+        aid
+      }
+    })
+  }
+
+  linkToArticle (e,rowData){
+    const { navigator } = this.props;
+    if(!rowData) return;
+    navigator.push({
+      name : rowData.title,
+      component : Detail,
+      params : {
+        aid : rowData.id
+      }
     })
   }
 
   _renderRow(rowData, sectionID, rowID, highlightRow){
-    console.log(rowData, sectionID, rowID, highlightRow)
+    // console.log(rowData, sectionID, rowID, highlightRow)
     return (
-      <View style={[styles.rows]} key={rowData.id}>
+      <TouchableOpacity
+        key={rowData.id}
+        onPress={ (e)=>{this.linkToArticle(e,rowData)}}
+      >
+      <View style={[styles.rows]}>
         <Image
           style={styles.article}
           source={{uri: rowData.author.avatar_url}}
@@ -79,6 +99,7 @@ export default class Essence extends Component {
           </View>
         </View>
       </View>
+      </TouchableOpacity>
     )
   }
   render (){
@@ -90,6 +111,7 @@ export default class Essence extends Component {
           <ListView
             dataSource={ds.cloneWithRows(data)}
             renderRow={this._renderRow.bind(this)}
+            initialListSize={5}
           /> :
           null
         }

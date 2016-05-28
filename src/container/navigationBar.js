@@ -46,7 +46,7 @@ let NavigationBarRouteMapper = {
   },
   Title(route, navigator, index, navState) {
     // console.log(route , navigator , index , navState)
-    return <Text style={{fontSize:18 , lineHeight:30 , color : '#fff'}}>{route.name}</Text>
+    return <Text numberOfLines={1} style={{width:250,textAlign:'center',fontSize:18 , lineHeight:30 , color : '#fff'}}>{route.name}</Text>
   }
 };
 
