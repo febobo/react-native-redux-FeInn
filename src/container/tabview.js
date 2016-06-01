@@ -1,7 +1,6 @@
 
-import React from 'react';
+import React , { Component } from 'react';
 import {
-  Component ,
   Navigator ,
   View ,
   Text,
@@ -34,7 +33,6 @@ export default class TabView extends Component {
   }
 
   render(){
-    console.log(this)
     const { tabChange } = this.props.tab;
     return(
       <TabBarIOS>

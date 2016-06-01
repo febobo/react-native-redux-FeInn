@@ -1,7 +1,6 @@
 
-import React from 'react';
+import React , { Component } from 'react';
 import {
-  Component ,
   Navigator ,
   View ,
   Text,
@@ -13,19 +12,21 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HTMLView from 'react-native-htmlview';
+import RefreshableListView from 'react-native-refreshable-listview';
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
 import Article from './Article'
 import Detail from './Detail'
 
+var page = 1;
 export default class Essence extends Component {
   constructor (props){
     super(props);
   }
 
   componentWillMount (){
-    const { getList } = this.props.essence;
-    getList()
+    let params = `page=${page}&limit=10`
+    this._getList(params)
   }
 
   to(){
@@ -52,6 +53,62 @@ export default class Essence extends Component {
     })
   }
 
+  _getList(params){
+    const { getList } = this.props.essence;
+    getList(params)
+  }
+
+  _onReached (){
+    const { isDownLoad } = this.props.essence;
+    isDownLoad(true);
+    let params = `page=${++page}&limit=10`
+    this._getList(params,()=>{
+      isDownLoad(false)
+    });
+  }
+
+  _loadData (){
+    let params = "page=1&limit=10"
+    return this._getList(params)
+  }
+
+  render (){
+    const { data , downLoadStatus} = this.props.Essence;
+    console.log(downLoadStatus,11)
+    return (
+      <View style={[styles.container]}>
+        {
+          data ?
+          <RefreshableListView
+            dataSource={ds.cloneWithRows(data)}
+            renderRow={this._renderRow.bind(this)}
+            initialListSize={2}
+            onEndReached={this._onReached.bind(this)}
+            onEndReachedThreshold={0}
+            pageSize={3}
+            loadData={this._loadData.bind(this)}
+            refreshDescription="正在加载..."
+            refreshingIndicatorComponent={
+              <RefreshableListView.RefreshingIndicator
+                description='下拉刷新'
+              />
+            }
+            renderFooter={null}
+          /> :
+          null
+        }
+        {
+          downLoadStatus ?
+          <View
+            style={[styles.loadTips]}
+          >
+            <Text style={[styles.loadTipsText]}>正在加载...</Text>
+          </View> : null
+        }
+
+      </View>
+    )
+  }
   _renderRow(rowData, sectionID, rowID, highlightRow){
     // console.log(rowData, sectionID, rowID, highlightRow)
     return (
@@ -102,25 +159,19 @@ export default class Essence extends Component {
       </TouchableOpacity>
     )
   }
-  render (){
-    const { data } = this.props.Essence;
-    return (
-      <View style={[styles.container]}>
-        {
-          data ?
-          <ListView
-            dataSource={ds.cloneWithRows(data)}
-            renderRow={this._renderRow.bind(this)}
-            initialListSize={5}
-          /> :
-          null
-        }
-
-      </View>
-    )
-  }
 }
-
+var indicatorStylesheet = StyleSheet.create({
+  wrapper: {
+    backgroundColor: 'red',
+    height: 60,
+    marginTop: 10,
+  },
+  content: {
+    backgroundColor: 'blue',
+    marginTop: 10,
+    height: 60,
+  },
+})
 const styles = StyleSheet.create({
   container : {
     flex : 1,
@@ -128,7 +179,18 @@ const styles = StyleSheet.create({
     // justifyContent : 'center',
     // backgroundColor : 'yellow',
     paddingTop:65,
+    paddingBottom:48,
     paddingVertical : 5
+  },
+  loadTips :{
+    flexDirection : 'row',
+    alignItems : 'center',
+    justifyContent : 'center',
+    height:36,
+  },
+  loadTipsText : {
+    fontSize : 16,
+    color: '#ccc',
   },
   flex1 : {
     flex : 1
@@ -177,35 +239,3 @@ const styles = StyleSheet.create({
     // color : '#fff'
   }
 })
-
-// <View style={[styles.rows]} key={rowData.id}>
-//   <Image
-//     style={styles.article}
-//     source={{uri: rowData.author.avatar_url}}
-//   />
-//   <View
-//     style={styles.content}
-//   >
-//     <Text
-//       style={[styles.articleTitle]}
-//       numberOfLines={1}
-//     >
-//       {rowData.title}
-//     </Text>
-//     <View style={[styles.articleDec]}>
-//       <Text style={{flex:1}}>131/3133</Text>
-//       <Text style={{flex:1 }}>
-//         <Text style={[styles.flex1]}>{rowData.tab}</Text>
-//         {
-//           rowData.good ?
-//           <Text style={[styles.flex1]}>精华</Text> : null
-//         }
-//         {
-//           rowData.top ?
-//           <Text style={[styles.flex1]}>置顶</Text> : null
-//         }
-//       </Text>
-//       <Text style={{flex:1,textAlign:'right'}}>3天前</Text>
-//     </View>
-//   </View>
-// </View>

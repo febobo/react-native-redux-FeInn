@@ -1,5 +1,5 @@
-import React from 'react';
-import { Component , Navigator , View , Text} from 'react-native';
+import React , { Component } from 'react';
+import { Navigator , View , Text} from 'react-native';
 import { bindActionCreators } from 'redux';
 import Essence from '../page/Essence';
 import * as EssenceActions from '../actions/EssenceActions';
@@ -17,7 +17,6 @@ class FeInnApp extends Component {
     const { state , actions } = this.props;
     let defaultName = '精选';
     let defaultComponent = TabView;
-    console.log(this)
     return (
       <Navigator
           initialRoute={{ name: defaultName, component: defaultComponent }}

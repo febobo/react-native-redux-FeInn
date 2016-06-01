@@ -1,19 +1,35 @@
 import * as types from './ActionTypes';
 
-export function essenceList(data){
+export function essenceList(data , getState){
+  let oldList = (getState().Essence && getState().Essence.data) || data;
+  // 下拉分页，往已有的数据塞新数据
+  if(oldList.length){
+    data.map( (v,k) =>{
+      oldList.push(v);
+    })
+  }
   return {
     type : types.INDEX_LIST,
-    data
+    data : oldList
+  }
+
+}
+
+export function isDownLoad(isLoad){
+  return {
+    type : types.DOWN_LOAD,
+    isLoad
   }
 }
 
-export function getList(){
-  return (dispatch) => {
-    fetch('https://cnodejs.org/api/v1/topics')
+// 首页列表
+export function getList(params , cb){
+  return (dispatch , getState) => {
+    fetch('https://cnodejs.org/api/v1/topics?' + params)
     .then(res => res.json())
     .then(json =>{
-      console.log(json)
-      dispatch(essenceList(json.data))
+      cb && cb();
+      dispatch(essenceList(json.data , getState))
     })
     .catch( msg =>{
       console.log(msg)
@@ -33,7 +49,6 @@ export function getArticleDetail(id){
     fetch('https://cnodejs.org/api/v1/topic/' + id)
     .then(res => res.json())
     .then(json =>{
-      console.log(json)
       dispatch(essenceList(json.data))
     })
     .catch( msg =>{

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Component , Navigator , View , Text , TabBarIOS} from 'react-native';
+import React , { Component } from 'react';
+import {  Navigator , View , Text , TabBarIOS} from 'react-native';
 import { createStore , applyMiddleware , combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -18,7 +18,7 @@ export default class App extends Component {
       selectedTab: 'home',
     };
   }
-  
+
   render (){
     return (
       <Provider store={store}>
