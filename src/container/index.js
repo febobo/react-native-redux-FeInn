@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import { Navigator , View , Text} from 'react-native';
+import { Navigator , View , Text , Image , StyleSheet} from 'react-native';
 import { bindActionCreators } from 'redux';
 import Essence from '../page/Essence';
 import * as EssenceActions from '../actions/EssenceActions';
@@ -18,22 +18,30 @@ class FeInnApp extends Component {
     let defaultName = '精选';
     let defaultComponent = TabView;
     return (
-      <Navigator
-          initialRoute={{ name: defaultName, component: defaultComponent }}
-          configureScene={(route) => {
-            return Navigator.SceneConfigs.VerticalDownSwipeJump;
-          }}
-          renderScene={(route, navigator) => {
-            console.log(route)
-              let Component = route.component;
-              return <Component {...this.props} {...route.params} navigator={navigator} />
-          }}
-          navigationBar={navigationBar}
-      />
+      <Image
+				style={styles.bg}>
+        <Navigator
+            initialRoute={{ name: defaultName, component: defaultComponent }}
+            configureScene={(route) => {
+              return Navigator.SceneConfigs.FloatFromRight;
+            }}
+            renderScene={(route, navigator) => {
+                let Component = route.component;
+                return <Component {...this.props} {...route.params} navigator={navigator} />
+            }}
+        />
+      </Image>
     )
   }
 }
 
+            // navigationBar={navigationBar}
+const styles = StyleSheet.create({
+	bg: {
+		flex: 1,
+		backgroundColor: 'transparent'
+	}
+});
 
 const mapActionCreators = (dispatch) => ({
   essence : bindActionCreators(EssenceActions , dispatch),

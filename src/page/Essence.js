@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HTMLView from 'react-native-htmlview';
+import moment from 'moment';
 import RefreshableListView from 'react-native-refreshable-listview';
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
@@ -82,10 +83,13 @@ export default class Essence extends Component {
           <RefreshableListView
             dataSource={ds.cloneWithRows(data)}
             renderRow={this._renderRow.bind(this)}
-            initialListSize={2}
+            initialListSize={10}
             onEndReached={this._onReached.bind(this)}
             onEndReachedThreshold={0}
             pageSize={3}
+            showsVerticalScrollIndicator={true}
+            removeClippedSubviews={true}
+            pagingEnabled={true}
             loadData={this._loadData.bind(this)}
             refreshDescription="正在加载..."
             refreshingIndicatorComponent={
@@ -111,6 +115,11 @@ export default class Essence extends Component {
   }
   _renderRow(rowData, sectionID, rowID, highlightRow){
     // console.log(rowData, sectionID, rowID, highlightRow)
+    const navs = {
+			ask: '问答',
+			share: '分享',
+			job: '招聘'
+		};
     return (
       <TouchableOpacity
         key={rowData.id}
@@ -141,18 +150,18 @@ export default class Essence extends Component {
                 <Text style={[styles.dec]}>{rowData.reply_count}</Text>
               </View>
             </View>
-            <View style={{flex:2,flexDirection:'row',alignItems : 'center'}}>
-              <Text style={[styles.tag]}>{rowData.tab}</Text>
+            <View style={{flex:1,flexDirection:'row',alignItems : 'center'}}>
+              <Text style={[styles.tag]}>{navs[rowData.tab]}</Text>
               {
                 rowData.good ?
-                <Text style={[styles.tag]}>精华</Text> : null
+                <Text style={[styles.tag]}>精</Text> : null
               }
               {
                 rowData.top ?
-                <Text style={[styles.tag]}>置顶</Text> : null
+                <Text style={[styles.tag]}>顶</Text> : null
               }
             </View>
-            <Text style={{flex:1,textAlign:'right'}}>3天前</Text>
+            <Text style={{flex:2,textAlign:'right'}}>{moment(rowData.last_reply_at).startOf('minute').fromNow()}</Text>
           </View>
         </View>
       </View>
@@ -178,7 +187,6 @@ const styles = StyleSheet.create({
     // alignItems : 'center',
     // justifyContent : 'center',
     // backgroundColor : 'yellow',
-    paddingTop:65,
     paddingBottom:48,
     paddingVertical : 5
   },
