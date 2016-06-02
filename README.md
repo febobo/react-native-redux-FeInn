@@ -20,6 +20,7 @@ FeInn 致力于让每一个愿意动手的人都能徒手写APP
 * [FeInn-v0.0.1 Redux环境搭建](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.1)
 * [FeInn-v0.0.2 使用Navigator](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.2)
 * [FeInn-v0.0.3 使用Fetch](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.3)
+* [FeInn-v0.0.4 使用ListView](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.4)
 
 ### Requirements
 * node  
