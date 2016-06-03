@@ -184,9 +184,6 @@ var indicatorStylesheet = StyleSheet.create({
 const styles = StyleSheet.create({
   container : {
     flex : 1,
-    // alignItems : 'center',
-    // justifyContent : 'center',
-    // backgroundColor : 'yellow',
     paddingBottom:48,
     paddingVertical : 5
   },

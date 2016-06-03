@@ -41,7 +41,7 @@ class Html extends Component {
 
 	_onLinkPress(url) {
 		let router = this.props.router;
-
+		if(!router) return;
 		if (/^\/user\/\w*/.test(url)) {
 			let authorName = url.replace(/^\/user\//, '');
 
