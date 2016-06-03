@@ -1,12 +1,14 @@
 import * as types from '../actions/actionTypes';
 
-export default function Detail (state={} , action={}){
-  console.log(action,1112)
+const tabInitState = {
+  selectedTab : 'essence'
+}
+export default function Comment (state=tabInitState , action={}){
   switch (action.type) {
-    case types.ARTICLE_DETAIL:
+    case types.TAB_CHANGE:
       return Object.assign(
         {} , state , {
-          data : action.data
+          selectedTab : action.selectedTab
         }
       )
       break;

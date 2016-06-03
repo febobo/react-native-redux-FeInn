@@ -1,4 +1,4 @@
-import * as types from './ActionTypes';
+import * as types from './actionTypes';
 
 export function essenceList(data , getState){
   let oldList = (getState().Essence && getState().Essence.data) || data;

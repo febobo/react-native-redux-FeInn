@@ -7,24 +7,28 @@ import React, {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import Comment from '../page/Comment';
 
-export default class Return extends Component {
+export default class TabShow extends Component {
 	_onPress() {
-    const { navigator } = this.props
+    const { navigator , pageFlag ,aid} = this.props
+    if(pageFlag == 'comment'){
+      return navigator.push({
+        component : Comment,
+        params : {
+          aid : aid
+        }
+      })
+    }
 		navigator && navigator.pop && navigator.pop()
 	}
 
 	render() {
-    console.log(this)
 		return (
-      <View style={styles.arrow}>
+      <View style={this.props.wrapStyle}>
         <TouchableOpacity onPress={this._onPress.bind(this)}>
   				<View style={styles.iconWrapper}>
-  					<Icon
-  						name='md-arrow-back'
-  						size={ 30 }
-  						color='rgba(255,255,255,1)'
-  						style={ styles.returnIcon }/>
+            {this.props.content}
   				</View>
         </TouchableOpacity>
 			</View>
@@ -39,7 +43,6 @@ const styles = StyleSheet.create({
     position:'absolute',
     left : 20,
     bottom : 25,
-
   },
 	returnIcon: {
 		flex: 1,

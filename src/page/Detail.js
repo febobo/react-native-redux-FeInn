@@ -14,19 +14,11 @@ import { bindActionCreators } from 'redux';
 import Essence from '../page/Essence';
 import * as DetailActions from '../actions/DetailActions';
 import { connect } from 'react-redux';
-import HTMLView from 'react-native-htmlview';
+import Html from '../utils/Html';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
-import Return from '../components/Return';
+import TabShow from '../components/TabShow';
 import { randomBg } from '../utils';
-
-const regs = {
-	http: {
-		topic: /^https?:\/\/cnodejs\.org\/topic\/\w*/,
-		user: /^https?:\/\/cnodejs\.org\/user\/\w*/
-	},
-	gif: /.*\.gif$/
-};
 
 export default class Detail extends Component {
   constructor (props){
@@ -42,13 +34,32 @@ export default class Detail extends Component {
   render (){
     // console.log(this)
     const { data } = this.props.Detail;
+    const pointContent = (()=>{
+      return (
+        <Icon
+          name='md-arrow-back'
+          size={ 30 }
+          color='rgba(255,255,255,1)'
+        />
+      )
+    })();
+
+    const commentContent = (()=>{
+      return (
+        <Icon
+          name='ios-text-outline'
+          size={ 30 }
+          color='rgba(255,255,255,1)'
+        />
+      )
+    })();
     return (
       <View style={[styles.container]}>
       <ScrollView>
       <View style={[styles.container]}>
         {
           data ?
-          <View>
+          <View >
           <View style={[styles.header,{backgroundColor:randomBg()}]}>
             <View>
               <Image
@@ -77,16 +88,26 @@ export default class Detail extends Component {
               </View>
             </View>
           </View>
-            <HTMLView
-              value={data.content}
-              stylesheet={styles}
-            />
+          <View style={{paddingHorizontal : 10}}>
+            <Html
+  						router={this.props.navigator}
+  						content={data.content}/>
+          </View>
           </View>
           : null
         }
       </View>
       </ScrollView>
-      <Return {...this.props} />
+      <TabShow {...this.props}
+        content={pointContent}
+        wrapStyle={styles.wrapStyle}
+       />
+       <TabShow {...this.props}
+         content={commentContent}
+         wrapStyle={styles.commentWrapStyle}
+         pageFlag={'comment'}
+         aid={data && data.id}
+        />
       </View>
     )
   }
@@ -99,6 +120,18 @@ const defaultMaxImageWidth = width - 30 - 20;
 const styles = StyleSheet.create({
   container : {
     flex : 1,
+  },
+  wrapStyle : {
+    flex : 1,
+    position:'absolute',
+    left : 20,
+    bottom : 25,
+  },
+  commentWrapStyle : {
+    flex : 1,
+    position:'absolute',
+    right : 20,
+    bottom : 25,
   },
   authorImg: {
 		width: authorImgHeight,
@@ -124,13 +157,6 @@ const styles = StyleSheet.create({
 		width: 12,
 		height: 16,
 		marginRight: 8
-	},
-  img: {
-		width: defaultMaxImageWidth,
-		height: defaultMaxImageWidth,
-		resizeMode: Image.resizeMode.cover,
-		borderRadius: 5,
-		margin: 10
 	}
 })
 

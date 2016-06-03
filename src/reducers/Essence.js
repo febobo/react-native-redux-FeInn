@@ -1,4 +1,4 @@
-import * as types from '../actions/ActionTypes';
+import * as types from '../actions/actionTypes';
 
 export default function Essence (state={} , action={}){
   switch (action.type) {
