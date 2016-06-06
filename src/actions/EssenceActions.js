@@ -1,18 +1,18 @@
 import * as types from './actionTypes';
 
 export function essenceList(data , getState){
-  let oldList = (getState().Essence && getState().Essence.data) || data;
+  console.log(getState().Essence && getState().Essence.data)
+  let oldList = (getState().Essence && getState().Essence.data && getState().Essence.data.concat(data))  || data;
   // 下拉分页，往已有的数据塞新数据
-  if(oldList.length){
-    data.map( (v,k) =>{
-      oldList.push(v);
-    })
-  }
+  // if(oldList){
+  //   data.map( (v,k) =>{
+  //     oldList.push(v);
+  //   })
+  // }
   return {
     type : types.INDEX_LIST,
     data : oldList
   }
-
 }
 
 export function isDownLoad(isLoad){
@@ -24,6 +24,7 @@ export function isDownLoad(isLoad){
 
 // 首页列表
 export function getList(params , cb){
+  console.log(params)
   return (dispatch , getState) => {
     fetch('https://cnodejs.org/api/v1/topics?' + params)
     .then(res => res.json())
