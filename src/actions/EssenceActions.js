@@ -1,9 +1,9 @@
 import * as types from './actionTypes';
 
 export function essenceList(data , getState){
-  let oldList = (getState().Essence && getState().Essence.data) || data;
+  let oldList = (getState().Essence && getState().Essence.data)  || [];
   // 下拉分页，往已有的数据塞新数据
-  if(oldList.length){
+  if(oldList){
     data.map( (v,k) =>{
       oldList.push(v);
     })
@@ -12,7 +12,6 @@ export function essenceList(data , getState){
     type : types.INDEX_LIST,
     data : oldList
   }
-
 }
 
 export function isDownLoad(isLoad){

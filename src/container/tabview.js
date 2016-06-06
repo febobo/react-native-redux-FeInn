@@ -14,6 +14,7 @@ const myIcon = (<Icon name="ios-time" size={30} color="#900" />)
 import Essence from '../page/Essence';
 import Article from '../page/Article';
 import Welfare from '../page/Welfare';
+import Login from '../page/Login';
 
 export default class TabView extends Component {
   constructor (props){
@@ -32,6 +33,12 @@ export default class TabView extends Component {
       return false
   }
 
+  goSetting (){
+    const { navigator } = this.props;
+    navigator.push({
+      component : Login,
+    })
+  }
   render(){
     const { tabChange } = this.props.tab;
     return(
@@ -63,6 +70,14 @@ export default class TabView extends Component {
           onPress={()=>{tabChange('welfare')}}
         >
         <Welfare {...this.props} />
+        </Icon.TabBarItem>
+        <Icon.TabBarItem
+          title="设置"
+          iconName="ios-settings-outline"
+          selectedIconName="ios-settings"
+          selected={this.isActive('settings')}
+          onPress={this.goSetting.bind(this)}
+        >
         </Icon.TabBarItem>
       </TabBarIOS>
     )

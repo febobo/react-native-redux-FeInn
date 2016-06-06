@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ListView,
   Image,
-  Dimensions
+  Dimensions,
+  TextInput
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -73,13 +74,29 @@ export default class Comment extends Component {
             <Text style={{fontSize:20,color:'#red'}}>暂无评论</Text>
           </View>
         }
-        <TabShow {...this.props}
-          content={pointContent}
-          wrapStyle={styles.wrapStyle}
-         />
+        <View style={[styles.commentBox]}>
+          <Image
+            style={[styles.article,styles.authorHeader]}
+            source={{uri : 'http://test.imgs.wn518.com/upimages/ys-sales/2016-05-05/fc37e0ae1cdc0282019f3d7d25d6fcdf_1_0_0_480_480_0.jpg'}}
+          />
+          <View style={{backgroundColor:'#ccc',flex:1}}>
+            <TextInput
+               style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+               value='111'
+               placeholder="说说我的看法"
+               placeholderTextColor="#ccc"
+               keyboardType={"default"}
+             />
+          </View>
+        </View>
       </View>
     )
   }
+
+        // <TabShow {...this.props}
+        //   content={pointContent}
+        //   wrapStyle={styles.wrapStyle}
+        //  />
 
   _renderRow(rowData, sectionID, rowID, highlightRow){
     return (
@@ -119,6 +136,16 @@ const styles = StyleSheet.create({
     flex : 1,
     // alignItems : 'center',
     // justifyContent : 'center',
+  },
+  authorHeader : {
+    padding:10
+  },
+  commentBox : {
+    // position:'absolute',
+    // bottom:0,
+    // left:0,
+    padding:10,
+    flexDirection : 'row'
   },
   commentHeader : {
     height : 65,

@@ -18,7 +18,6 @@ let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
 import Article from './Article'
 import Detail from './Detail'
-
 var page = 1;
 export default class Essence extends Component {
   constructor (props){
@@ -32,7 +31,6 @@ export default class Essence extends Component {
 
   to(){
     const { navigator } = this.props;
-    console.log(this)
     navigator.push({
       name : '文章',
       component : Detail,
@@ -75,7 +73,8 @@ export default class Essence extends Component {
 
   render (){
     const { data , downLoadStatus} = this.props.Essence;
-    console.log(downLoadStatus,11)
+
+    console.log(22)
     return (
       <View style={[styles.container]}>
         {
