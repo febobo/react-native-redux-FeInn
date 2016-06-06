@@ -67,14 +67,12 @@ export default class Essence extends Component {
   }
 
   _loadData (){
-    let params = "page=1&limit=10"
+    let params = `page=${page}&limit=10`
     return this._getList(params)
   }
 
   render (){
     const { data , downLoadStatus} = this.props.Essence;
-
-    console.log(22)
     return (
       <View style={[styles.container]}>
         {

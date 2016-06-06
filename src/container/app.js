@@ -20,7 +20,6 @@ export default class App extends Component {
   }
 
   render (){
-    console.log(11222)
     return (
       <Provider store={store}>
         <FeInnApp />
