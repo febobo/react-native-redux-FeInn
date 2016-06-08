@@ -23,7 +23,7 @@ class FeInnApp extends Component {
         <Navigator
             initialRoute={{ name: defaultName, component: defaultComponent }}
             configureScene={(route) => {
-              return Navigator.SceneConfigs.FloatFromRight;
+              return Navigator.SceneConfigs.HorizontalSwipeJump;
             }}
             renderScene={(route, navigator) => {
                 let Component = route.component;
@@ -39,7 +39,7 @@ class FeInnApp extends Component {
 const styles = StyleSheet.create({
 	bg: {
 		flex: 1,
-		backgroundColor: 'transparent'
+		// backgroundColor: 'transparent'
 	}
 });
 

@@ -6,25 +6,63 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import TabShow from '../components/TabShow';
+import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { randomBg } from '../utils';
+import QrCode from './QrCode';
 
 export default class Login extends Component {
   constructor (props){
     super(props);
   }
 
+  login (){
+    const { navigator } = this.props;
+    Camera.checkDeviceAuthorizationStatus().then( (isAuth) =>{
+      if(isAuth){
+        navigator.push({
+          component : QrCode
+        })
+      }else{
+        alert('请前往设置')
+      }
+    }).catch( (err) =>{
+      alert(err)
+    })
+
+    // data.then((res)=>{
+    //   console.log(res)
+    // })
+  }
+
   renderHeader (){
+    const {isLogin} = this.props;
     return (
       <View style={[styles.userHeader,{backgroundColor:randomBg()}]}>
         <View style={styles.userImgWrap}>
-          <Image
-            style={[styles.userImg]}
-            source={{uri : 'http://test.imgs.wn518.com/upimages/ys-sales/2016-05-05/fc37e0ae1cdc0282019f3d7d25d6fcdf_1_0_0_480_480_0.jpg'}}
-          />
+          <View style={styles.userImgBox}>
+            <Image
+              style={[styles.userImg]}
+              source={{uri : 'http://test.imgs.wn518.com/upimages/ys-sales/2016-03-29/87e08bb58a0a9b57bcd035fbf6bb4e02_1_0_0_420_420_1.jpg'}}
+            />
+          </View>
+          <View style={styles.userName}>
+            {
+              isLogin ?
+              <Text style={{textAlign:'center',color:textColor,fontSize:16}}>十三把刀</Text> :
+              <TouchableOpacity onPress={this.login.bind(this)}>
+              <Text style={{textAlign:'center',color:textColor,fontSize:16}}>登陆</Text>
+              </TouchableOpacity>
+            }
+          </View>
+        </View>
+        <View style={styles.userInfo}>
+          <Text style={{textAlign:'center',color:textColor}}>2121/122</Text>
+          <Text style={{textAlign:'center',color:textColor}}>注册时间：2015/01/01</Text>
         </View>
       </View>
     )
@@ -55,16 +93,36 @@ export default class Login extends Component {
 }
 
 const { width , height } = Dimensions.get('window');
-const userImgWidth = 100;
+const userImgWidth = 80;
+const textColor = '#fff'
 const styles = StyleSheet.create({
   container : {
     flex : 1,
   },
   userImgWrap : {
-    flex : 1,
+    flex : 8,
+    flexDirection : 'column',
+    // alignItems : 'center',
+    justifyContent : 'center'
+  },
+  userImgBox :{
+    paddingTop:20,
     flexDirection : 'row',
     alignItems : 'center',
     justifyContent : 'center'
+  },
+  userName : {
+    flex : 1,
+    flexDirection : 'row',
+    justifyContent : 'center',
+    alignItems : 'center',
+  },
+  userInfo : {
+    flex : 2,
+    flexDirection : 'row',
+    alignItems : 'center',
+    paddingHorizontal : 10,
+    justifyContent : 'space-between'
   },
   userHeader : {
     height :height/4
