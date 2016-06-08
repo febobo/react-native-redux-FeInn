@@ -13,8 +13,10 @@ import TabShow from '../components/TabShow';
 import Camera from 'react-native-camera';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { randomBg } from '../utils';
-import QrCode from './QrCode';
-
+import connectComponent from '../utils/connectComponent';
+import * as QrCodeComponent from './QrCode';
+console.log(QrCodeComponent)
+const QrCode = connectComponent(QrCodeComponent);
 export default class Login extends Component {
   constructor (props){
     super(props);

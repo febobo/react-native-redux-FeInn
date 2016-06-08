@@ -3,12 +3,6 @@ import * as types from './actionTypes';
 export function essenceList(data , getState){
   console.log(getState().Essence && getState().Essence.data)
   let oldList = (getState().Essence && getState().Essence.data && getState().Essence.data.concat(data))  || data;
-  // 下拉分页，往已有的数据塞新数据
-  // if(oldList){
-  //   data.map( (v,k) =>{
-  //     oldList.push(v);
-  //   })
-  // }
   return {
     type : types.INDEX_LIST,
     data : oldList

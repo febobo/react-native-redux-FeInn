@@ -16,26 +16,15 @@ import BarcodeScanner from 'react-native-barcodescanner';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { randomBg } from '../utils';
 
-export default class QrCode extends Component {
+
+class QrCode extends Component {
   constructor (props){
     super(props);
     this.state = {
       torchMode: 'off',
       cameraType: 'back',
     };
-  }
-
-  login (){
-    const { navigator } = this.props;
-  }
-
-  renderHeader (){
-    return (
-      <View style={[styles.userHeaderd]}>
-        <View style={styles.userInfo}>
-        </View>
-      </View>
-    )
+    this.succesed = false;
   }
 
   barcodeReceived(e) {
@@ -50,12 +39,20 @@ export default class QrCode extends Component {
   }
 
   _onBarCodeRead (data){
-    console.log(data)
+    if (this.succesed) return;
+		this.succesed = true;
+    const { navigator , actions } = this.props;
+    actions.checkToken(data.data , ()=>{
+
+    })
+    alert('登陆成功');
+    navigator.pop();
     Vibration.vibrate()
     return;
-    alert(1)
   }
+
   render (){
+    console.log(this)
     const pointContent = (()=>{
       return (
         <Icon
@@ -172,3 +169,10 @@ const styles = StyleSheet.create({
     bottom : 25,
   },
 })
+
+export const LayoutComponent = QrCode;
+export function mapStateToProps(state){
+  return {
+    User : state && state.User
+  }
+}
