@@ -52,7 +52,6 @@ let NavigationBarRouteMapper = {
 
 export default (
   <Navigator.NavigationBar
-    style={{backgroundColor: '#333'}}
     routeMapper={NavigationBarRouteMapper}
   />
 )
