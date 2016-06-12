@@ -28,8 +28,6 @@ class QrCode extends Component {
   }
 
   barcodeReceived(e) {
-    console.log('Barcode: ' + e.data);
-    console.log('Type: ' + e.type);
   }
 
   takePicture() {
@@ -43,7 +41,7 @@ class QrCode extends Component {
 		this.succesed = true;
     const { navigator , actions } = this.props;
     actions.checkToken(data.data , ()=>{
-
+      console.log(1111)
     })
     alert('登陆成功');
     navigator.pop();
