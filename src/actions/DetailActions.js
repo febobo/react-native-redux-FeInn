@@ -12,7 +12,6 @@ export function getArticleDetail(id){
     fetch('https://cnodejs.org/api/v1/topic/' + id)
     .then(res => res.json())
     .then(json =>{
-      console.log(json)
       dispatch(articleDetail(json.data))
     })
     .catch( msg =>{

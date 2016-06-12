@@ -32,7 +32,6 @@ export default class Detail extends Component {
   }
 
   render (){
-    // console.log(this)
     const { data } = this.props.Detail;
     const pointContent = (()=>{
       return (

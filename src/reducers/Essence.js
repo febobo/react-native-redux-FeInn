@@ -11,7 +11,6 @@ export default function Essence (state={} , action={}){
       )
       break;
     case types.DOWN_LOAD:
-    console.log(action , 11)
       return Object.assign(
         {} , state , {
           downLoadStatus : action.isLoad

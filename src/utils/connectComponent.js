@@ -9,7 +9,6 @@ const options = {
 
 
 export default function connectComponent({ mapStateToProps, mapDispatchToProps, mergeProps, LayoutComponent }) {
-	// console.log(mapStateToProps,22)
 	return connect(
 		mapStateToProps || function (state) {
 			return {};
