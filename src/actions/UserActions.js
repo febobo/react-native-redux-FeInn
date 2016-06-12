@@ -18,4 +18,9 @@ export const checkToken = createAction(types.CHECK_TOKEN , async(token) =>{
   const user = await fetch(`${config.domain}/user/${loginUser.loginname}`);
   const userInfo = await user.json()
   return userInfo;
+}, (token, resolved)=> {
+	return {
+		resolved: resolved,
+		sync: 'user'
+	}
 })

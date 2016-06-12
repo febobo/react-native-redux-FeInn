@@ -14,7 +14,9 @@ const myIcon = (<Icon name="ios-time" size={30} color="#900" />)
 import Essence from '../page/Essence';
 import Article from '../page/Article';
 import Welfare from '../page/Welfare';
-import Login from '../page/Login';
+import * as Login from '../page/Login';
+import connectComponent from '../utils/connectComponent';
+// const LoginPage = connectComponent(Login);
 
 export default class TabView extends Component {
   constructor (props){
@@ -36,7 +38,7 @@ export default class TabView extends Component {
   goSetting (){
     const { navigator } = this.props;
     navigator.push({
-      component : Login,
+      component : connectComponent(Login),
     })
   }
   render(){

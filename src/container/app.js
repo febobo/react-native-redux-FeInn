@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import asyncActionCallbackMiddleware from '../utils/asyncActionCallbackMiddleware';
+import promiseMiddleware from 'redux-promise';
 import * as reducers from '../reducers';
 import FeInnApp from './index';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -23,7 +24,8 @@ const logger = createLogger({
 let middlewares = [
   thunk,
   asyncActionCallbackMiddleware,
-  logger
+  logger,
+  promiseMiddleware
 ]
 const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 const reducer = combineReducers(reducers);

@@ -17,7 +17,7 @@ import connectComponent from '../utils/connectComponent';
 import * as QrCodeComponent from './QrCode';
 console.log(QrCodeComponent)
 const QrCode = connectComponent(QrCodeComponent);
-export default class Login extends Component {
+class Login extends Component {
   constructor (props){
     super(props);
   }
@@ -42,20 +42,28 @@ export default class Login extends Component {
   }
 
   renderHeader (){
-    const {isLogin} = this.props;
+    const {isLogin , User} = this.props;
+    console.log(this)
     return (
       <View style={[styles.userHeader,{backgroundColor:randomBg()}]}>
         <View style={styles.userImgWrap}>
           <View style={styles.userImgBox}>
-            <Image
-              style={[styles.userImg]}
-              source={{uri : 'http://test.imgs.wn518.com/upimages/ys-sales/2016-03-29/87e08bb58a0a9b57bcd035fbf6bb4e02_1_0_0_420_420_1.jpg'}}
-            />
+            {
+              User && User.success ?
+              <Image
+                style={[styles.userImg]}
+                source={{uri : User.data.avatar_url}}
+              /> :
+              <Image
+                style={[styles.userImg]}
+                source={{uri : 'http://test.imgs.wn518.com/upimages/ys-sales/2016-03-29/87e08bb58a0a9b57bcd035fbf6bb4e02_1_0_0_420_420_1.jpg'}}
+              />
+            }
           </View>
           <View style={styles.userName}>
             {
-              isLogin ?
-              <Text style={{textAlign:'center',color:textColor,fontSize:16}}>十三把刀</Text> :
+              User && User.success ?
+              <Text style={{textAlign:'center',color:textColor,fontSize:16}}>{User.data.loginname}</Text> :
               <TouchableOpacity onPress={this.login.bind(this)}>
               <Text style={{textAlign:'center',color:textColor,fontSize:16}}>登陆</Text>
               </TouchableOpacity>
@@ -141,3 +149,10 @@ const styles = StyleSheet.create({
     bottom : 25,
   },
 })
+
+export const LayoutComponent = Login;
+export function mapStateToProps(state){
+  return {
+    User : state && state.User
+  }
+}

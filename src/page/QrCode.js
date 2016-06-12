@@ -50,6 +50,7 @@ class QrCode extends Component {
   }
 
   render (){
+    console.log(this)
     const pointContent = (()=>{
       return (
         <Icon
