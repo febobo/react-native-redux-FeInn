@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import TabShow from '../components/TabShow';
 import Camera from 'react-native-camera';
+import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { randomBg } from '../utils';
 import connectComponent from '../utils/connectComponent';
@@ -70,10 +71,14 @@ class Login extends Component {
             }
           </View>
         </View>
-        <View style={styles.userInfo}>
+        {
+          User && User.success ?
+          <View style={styles.userInfo}>
           <Text style={{textAlign:'center',color:textColor}}>2121/122</Text>
-          <Text style={{textAlign:'center',color:textColor}}>注册时间：2015/01/01</Text>
-        </View>
+          <Text style={{textAlign:'center',color:textColor}}>注册时间：{moment(User.data.create_at).format('l')}</Text>
+          </View>
+          :null
+        }
       </View>
     )
   }
