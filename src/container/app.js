@@ -5,13 +5,16 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import asyncActionCallbackMiddleware from '../utils/asyncActionCallbackMiddleware';
-import promiseMiddleware from 'redux-promise';
+import promiseMiddleware from '../utils/promiseMiddleware'
+import reduxPromiseMiddleware from 'redux-promise';
 import * as reducers from '../reducers';
-import FeInnApp from './index';
+import * as FeInnAppPage from './index';
+import connectComponent from '../utils/connectComponent';
+const FeInnApp = connectComponent(FeInnAppPage);
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const logger = createLogger({
-	predicate: (getState, action) => true,
+	predicate: (getState, action) => false,
 	collapsed: true,
 	duration: true,
   colors: {
@@ -23,9 +26,10 @@ const logger = createLogger({
 
 let middlewares = [
   thunk,
+  reduxPromiseMiddleware,
+  promiseMiddleware,
   asyncActionCallbackMiddleware,
   logger,
-  promiseMiddleware
 ]
 const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 const reducer = combineReducers(reducers);

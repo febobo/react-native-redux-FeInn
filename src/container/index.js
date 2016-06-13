@@ -6,12 +6,21 @@ import * as EssenceActions from '../actions/EssenceActions';
 import * as TabActions from '../actions/TabActions';
 import { connect } from 'react-redux';
 import navigationBar from './navigationBar'
-import TabView from './tabview'
+import TabView from './tabview';
+import * as Toast from '../components/Toast';
+import connectComponent from '../utils/connectComponent';
+const ToastPage = connectComponent(Toast)
 
 class FeInnApp extends Component {
   constructor (props){
     super(props);
   }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.Utils.id !== nextProps.Utils.id){
+        console.log(this.toast)
+    }
+	}
 
   render (){
     const { state , actions } = this.props;
@@ -30,28 +39,24 @@ class FeInnApp extends Component {
                 return <Component {...this.props} {...route.params} navigator={navigator} />
             }}
         />
+        <ToastPage ref={ (view)=> this.toast=view }/>
       </Image>
     )
   }
 }
 
-            // navigationBar={navigationBar}
+
 const styles = StyleSheet.create({
 	bg: {
 		flex: 1,
 		// backgroundColor: 'transparent'
 	}
 });
-
-const mapActionCreators = (dispatch) => ({
-  essence : bindActionCreators(EssenceActions , dispatch),
-  tab : bindActionCreators(TabActions , dispatch)
-})
-
-const mapStateToProps = (state)=>
-({
-  Essence : state.Essence,
-  Tab : state.Tab
-})
-
-export default connect (mapStateToProps , mapActionCreators)(FeInnApp)
+export const LayoutComponent = FeInnApp;
+export function mapStateToProps(state){
+  return {
+      Essence : state.Essence,
+      Tab : state.Tab,
+      Utils : state.Utils
+  }
+}

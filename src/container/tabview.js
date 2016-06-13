@@ -11,12 +11,12 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 const myIcon = (<Icon name="ios-time" size={30} color="#900" />)
-import Essence from '../page/Essence';
+import * as EssencePage from '../page/Essence';
 import Article from '../page/Article';
 import Welfare from '../page/Welfare';
 import * as Login from '../page/Login';
 import connectComponent from '../utils/connectComponent';
-// const LoginPage = connectComponent(Login);
+const Essence = connectComponent(EssencePage);
 
 export default class TabView extends Component {
   constructor (props){
@@ -42,7 +42,8 @@ export default class TabView extends Component {
     })
   }
   render(){
-    const { tabChange } = this.props.tab;
+
+    const { tabChange } = this.props.actions;
     return(
       <TabBarIOS>
         <Icon.TabBarItem
