@@ -16,7 +16,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { randomBg } from '../utils';
 import connectComponent from '../utils/connectComponent';
 import * as QrCodeComponent from './QrCode';
-console.log(QrCodeComponent)
 const QrCode = connectComponent(QrCodeComponent);
 class Login extends Component {
   constructor (props){
@@ -63,7 +62,7 @@ class Login extends Component {
           </View>
           <View style={styles.userName}>
             {
-              User && User.success ?
+              0 && User && User.success ?
               <Text style={{textAlign:'center',color:textColor,fontSize:16}}>{User.data.loginname}</Text> :
               <TouchableOpacity onPress={this.login.bind(this)}>
               <Text style={{textAlign:'center',color:textColor,fontSize:16}}>登陆</Text>

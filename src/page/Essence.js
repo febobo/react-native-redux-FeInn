@@ -19,7 +19,7 @@ let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 import Article from './Article'
 import Detail from './Detail'
 var page = 1;
-export default class Essence extends Component {
+class Essence extends Component {
   constructor (props){
     super(props);
   }
@@ -41,6 +41,9 @@ export default class Essence extends Component {
   }
 
   linkToArticle (e,rowData){
+    // const { actions } = this.props;
+    // actions.toast('2222');
+    // return
     const { navigator } = this.props;
     if(!rowData) return;
     navigator.push({
@@ -53,12 +56,12 @@ export default class Essence extends Component {
   }
 
   _getList(params){
-    const { getList } = this.props.essence;
+    const { getList } = this.props.actions;
     getList(params)
   }
 
   _onReached (){
-    const { isDownLoad } = this.props.essence;
+    const { isDownLoad } = this.props.actions;
     isDownLoad(true);
     let params = `page=${++page}&limit=10`
     this._getList(params,()=>{
@@ -241,3 +244,10 @@ const styles = StyleSheet.create({
     // color : '#fff'
   }
 })
+
+export const LayoutComponent = Essence;
+// export function mapStateToProps(state){
+//   return {
+//     User : state && state.User
+//   }
+// }
