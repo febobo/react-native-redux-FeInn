@@ -19,7 +19,6 @@ export const checkToken = createAction(types.CHECK_TOKEN , async(token) =>{
   return userInfo = await user.json()
   // return userInfo;
 }, (token, resolved)=> {
-  resolved();
 	return {
 		resolved: resolved,
 		sync: 'user'

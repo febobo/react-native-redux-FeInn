@@ -7,9 +7,9 @@ import * as TabActions from '../actions/TabActions';
 import { connect } from 'react-redux';
 import navigationBar from './navigationBar'
 import TabView from './tabview';
-import * as Toast from '../components/Toast';
+import Toast from '../components/Toast';
 import connectComponent from '../utils/connectComponent';
-const ToastPage = connectComponent(Toast)
+// const ToastPage = connectComponent(Toast)
 
 class FeInnApp extends Component {
   constructor (props){
@@ -18,7 +18,7 @@ class FeInnApp extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(this.props.Utils.id !== nextProps.Utils.id){
-        console.log(this.toast)
+        this.toast.show(nextProps.Utils.text,nextProps.Utils.timeout)
     }
 	}
 
@@ -39,7 +39,7 @@ class FeInnApp extends Component {
                 return <Component {...this.props} {...route.params} navigator={navigator} />
             }}
         />
-        <ToastPage ref={ (view)=> this.toast=view }/>
+        <Toast ref={ (view)=> this.toast=view }/>
       </Image>
     )
   }
