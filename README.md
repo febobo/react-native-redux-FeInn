@@ -21,7 +21,8 @@ FeInn 致力于让每一个愿意动手的人都能徒手写APP
 * [FeInn-v0.0.2 使用Navigator](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.2)
 * [FeInn-v0.0.3 使用Fetch](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.3)
 * [FeInn-v0.0.4 使用ListView](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.4)
-* [FeInn-v0.0.4 精选增加详情页](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.5)
+* [FeInn-v0.0.5 精选增加详情页](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.5)
+* [FeInn-v0.0.6 增加扫码登陆](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.6)
 
 ### Requirements
 * node  
@@ -39,7 +40,7 @@ $ npm start
 use xcode open react-native-redux-es6/ios/demo.xcodeproj, then click run  
 or ```$ open FeInn.xcodeproj```,then click run  
 
-![使用Navigator](http://g.recordit.co/hGoKmJ1lYE.gif)
+![使用Navigator](http://g.recordit.co/AdkVUPK9Ly.gif)
 
 ### PS
 #### 仓库会持续更新，欢迎提出您宝贵的建议共同成长
