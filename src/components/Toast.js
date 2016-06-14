@@ -78,9 +78,3 @@ const styles = StyleSheet.create({
   }
 })
 export default Toast;
-// export const LayoutComponent = Toast;
-// export function mapStateToProps(state){
-//   return {
-// 		Utils : state && state.Utils
-//   }
-// }

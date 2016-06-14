@@ -20,14 +20,15 @@ import moment from 'moment';
 import TabShow from '../components/TabShow';
 import { randomBg } from '../utils';
 
-export default class Detail extends Component {
+
+class Detail extends Component {
   constructor (props){
     super(props);
   }
 
   componentWillMount(){
     const { aid } = this.props;
-    const { getArticleDetail } = this.props.detail;
+    const { getArticleDetail } = this.props.actions;
     getArticleDetail(aid)
   }
 
@@ -159,13 +160,20 @@ const styles = StyleSheet.create({
 	}
 })
 
-const mapActionCreators = (dispatch) => ({
-  detail : bindActionCreators(DetailActions , dispatch),
-})
 
-const mapStateToProps = (state)=>
-({
-  Detail : state.Detail
-})
-
-export default connect (mapStateToProps , mapActionCreators)(Detail)
+export const LayoutComponent = Detail;
+export function mapStateToProps(state){
+  return {
+    Detail : state.Detail
+  }
+}
+// const mapActionCreators = (dispatch) => ({
+//   detail : bindActionCreators(DetailActions , dispatch),
+// })
+//
+// const mapStateToProps = (state)=>
+// ({
+//   Detail : state.Detail
+// })
+//
+// export default connect (mapStateToProps , mapActionCreators)(Detail)

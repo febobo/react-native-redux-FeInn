@@ -7,7 +7,9 @@ import React, {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import Comment from '../page/Comment';
+import connectComponent from '../utils/connectComponent';
+import * as CommentPage from '../page/Comment';
+const Comment = connectComponent(CommentPage);
 
 export default class TabShow extends Component {
 	_onPress() {
