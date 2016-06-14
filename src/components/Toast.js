@@ -15,20 +15,38 @@ class Toast extends Component {
     this.state = {
       fadeAnim : new Animated.Value(1),
       show : true,
-      defaultText : '系统异常',
-      defaultDely : 3000
+      defaultText : '欢迎回来',
+      defaultDely : 1500
     }
   }
 
-  show (){
+	componentWillMount (){
+		this.show('',5000);
+	}
+
+  show (text,dely){
+		if(text) this.setState({defaultText:text});
+		if(dely) this.setState({defaultDely:dely});
+
+		this.setState({
+			show : true,
+		})
+
     Animated.timing(this.state.fadeAnim, {
 			toValue: 0,
 			duration: this.state.defaultDely
-		}).start();
+		}).start(()=>{
+			this.setState({
+	      fadeAnim : new Animated.Value(1),
+	      show : false,
+	      defaultText : '欢迎回来',
+	      defaultDely : 1500
+	    })
+		});
   }
 
   render (){
-		console.log(222222222)
+		if(!this.state.show) return null;
     return(
       <Animated.View
         style={[styles.toastWrap,{opacity: this.state.fadeAnim}]}
@@ -59,9 +77,10 @@ const styles = StyleSheet.create({
     color : '#fff'
   }
 })
-export const LayoutComponent = Toast;
-export function mapStateToProps(state){
-  return {
-		Utils : state && state.Utils
-  }
-}
+export default Toast;
+// export const LayoutComponent = Toast;
+// export function mapStateToProps(state){
+//   return {
+// 		Utils : state && state.Utils
+//   }
+// }
