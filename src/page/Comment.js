@@ -21,6 +21,7 @@ import * as DetailActions from '../actions/DetailActions';
 import { connect } from 'react-redux';
 import TabShow from '../components/TabShow';
 import connectComponent from '../utils/connectComponent';
+import config from '../config';
 
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
@@ -56,14 +57,26 @@ class Comment extends Component {
     console.log(this)
     actions.replyTopicById({
       topicId: Detail.data.id,
-			content: '21212',
+			content: this.textInputValue + config.replySuffix,
 			// replyId: this.replyId,
 			user: {
 				loginname: '212',
 				avatar_url: '2212'
 			}
+    },()=>{
+      this._resetReplyForm()
     })
   }
+
+  _resetReplyForm() {
+		this.replyId = null;
+		this.textInput.setNativeProps({
+			text: ''
+		});
+		this.textInputValue = '';
+		this.textInput.blur();
+	}
+
   componentUnMount(){
     this.keyboardWillHideEvent.remove()
     this.keyboardWillShowEvent.remove()
