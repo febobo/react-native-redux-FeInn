@@ -17,7 +17,9 @@ import RefreshableListView from 'react-native-refreshable-listview';
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
 import Article from './Article'
-import Detail from './Detail'
+import * as DetailPage from './Detail'
+import connectComponent from '../utils/connectComponent';
+const Detail = connectComponent(DetailPage);
 var page = 1;
 class Essence extends Component {
   constructor (props){

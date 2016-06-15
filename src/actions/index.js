@@ -3,11 +3,13 @@ import * as EssenceActions from './EssenceActions'
 import * as UserActions from './UserActions'
 import * as TabActions from './TabActions'
 import * as UtilsActions from './UtilsActions'
+import * as CommentActions from './CommentActions'
 
 export default {
   ...DetailActions,
   ...EssenceActions,
   ...TabActions,
   ...UserActions,
-  ...UtilsActions
+  ...UtilsActions,
+  ...CommentActions
 }

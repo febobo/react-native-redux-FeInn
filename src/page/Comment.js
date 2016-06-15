@@ -8,7 +8,9 @@ import {
   ListView,
   Image,
   Dimensions,
-  TextInput
+  TextInput,
+  ScrollView,
+  DeviceEventEmitter
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -19,16 +21,67 @@ import * as DetailActions from '../actions/DetailActions';
 import { connect } from 'react-redux';
 import TabShow from '../components/TabShow';
 import connectComponent from '../utils/connectComponent';
+import config from '../config';
 
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
-export default class Comment extends Component {
+class Comment extends Component {
   constructor (props){
     super(props);
+    this.state = {textInput: ''};
+    this.keyboardWillShowEvent = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
+		this.keyboardWillHideEvent = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
   }
 
-  render (){
+  keyboardWillShow (e){
+    this.commentView && this.commentView.setNativeProps({
+			style: {
+				height: commentHeight - e.endCoordinates.height
+			}
+		})
+  }
+
+  keyboardWillHide (){
+    this.commentView && this.commentView.setNativeProps({
+			style: {
+				height: commentHeight
+			}
+		})
+  }
+
+  reply (){
+    const { actions ,Detail } = this.props;
+    if(!this.textInputValue){
+      return actions.toast('评论不能为空')
+    }
     console.log(this)
+    actions.replyTopicById({
+      topicId: Detail.data.id,
+			content: this.textInputValue + config.replySuffix,
+			// replyId: this.replyId,
+			user: {
+				loginname: '212',
+				avatar_url: '2212'
+			}
+    },()=>{
+      this._resetReplyForm()
+    })
+  }
+
+  _resetReplyForm() {
+		this.replyId = null;
+		this.textInput.setNativeProps({
+			text: ''
+		});
+		this.textInputValue = '';
+		this.textInput.blur();
+	}
+
+  componentUnMount(){
+    this.keyboardWillHideEvent.remove()
+    this.keyboardWillShowEvent.remove()
+  }
+  render (){
     const pointContent = (()=>{
       return (
         <Icon
@@ -56,47 +109,67 @@ export default class Comment extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        {
-          Detail && Detail.data && Detail.data.reply_count !=0 ?
-          <ListView
-            dataSource={ds.cloneWithRows(Detail.data.replies)}
-            renderRow={this._renderRow.bind(this)}
-            initialListSize={10}
-            onEndReachedThreshold={0}
-            pageSize={3}
-            showsVerticalScrollIndicator={true}
-            removeClippedSubviews={true}
-            pagingEnabled={true}
-            refreshDescription="正在加载..."
-            renderFooter={null}
-          /> :
-          <View style={{flexDirection:'row',paddingTop:30,alignItems : 'center',justifyContent : 'center'}}>
-            <Text style={{fontSize:20,color:'#red'}}>暂无评论</Text>
-          </View>
-        }
+        <View
+          style={[styles.commentList]}
+          ref={(view) => this.commentView = view}
+        >
+          {
+            Detail && Detail.data && Detail.data.reply_count !=0 ?
+            <ListView
+              dataSource={ds.cloneWithRows(Detail.data.replies)}
+              renderRow={this._renderRow.bind(this)}
+              initialListSize={10}
+              onEndReachedThreshold={0}
+              pageSize={3}
+              showsVerticalScrollIndicator={true}
+              removeClippedSubviews={true}
+              pagingEnabled={true}
+              refreshDescription="正在加载..."
+              renderFooter={null}
+            /> :
+            <View style={{flexDirection:'row',paddingTop:30,alignItems : 'center',justifyContent : 'center'}}>
+              <Text style={{fontSize:20,color:'#red'}}>暂无评论</Text>
+            </View>
+          }
+        </View>
         <View style={[styles.commentBox]}>
           <Image
             style={[styles.article,styles.authorHeader]}
             source={{uri : 'http://test.imgs.wn518.com/upimages/ys-sales/2016-05-05/fc37e0ae1cdc0282019f3d7d25d6fcdf_1_0_0_480_480_0.jpg'}}
           />
-          <View style={{backgroundColor:'#ccc',flex:1}}>
+          <View style={{flex:1}}>
             <TextInput
-               style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-               value='111'
+               ref={(view) => this.textInput = view}
+               value={this.state && this.state.textInput}
+               onChangeText={(text) => {
+                               this.textInput.setNativeProps({
+                                   text: text
+                               });
+                               this.textInputValue = text;
+                               this.setState({textInput:text})
+                           }}
+               style={{height: 40, borderWidth:1,borderColor:'#eee'}}
                placeholder="说说我的看法"
                placeholderTextColor="#ccc"
                keyboardType={"default"}
              />
           </View>
+          <View>
+            <TouchableOpacity
+              style={[styles.replyBtn]}
+              onPress={()=>this.reply()}
+            >
+              <Icon
+                name='ios-undo'
+                size={ 30 }
+                color='#333'
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     )
   }
-
-        // <TabShow {...this.props}
-        //   content={pointContent}
-        //   wrapStyle={styles.wrapStyle}
-        //  />
 
   _renderRow(rowData, sectionID, rowID, highlightRow){
     return (
@@ -131,24 +204,31 @@ export default class Comment extends Component {
 }
 
 const avatarWidth = 40;
+const headerHeight = 65;
+const {height, width} = Dimensions.get('window');
+const commentHeight = height - headerHeight - avatarWidth - 20
+// const { width , height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container : {
-    flex : 1,
-    // alignItems : 'center',
-    // justifyContent : 'center',
+    height : height - headerHeight - avatarWidth
+  },
+  commentList : {
+    height : commentHeight
   },
   authorHeader : {
     padding:10
   },
   commentBox : {
-    // position:'absolute',
-    // bottom:0,
-    // left:0,
     padding:10,
+    height : 60,
     flexDirection : 'row'
   },
+  replyBtn : {
+    paddingTop : 5,
+    marginLeft:5
+  },
   commentHeader : {
-    height : 65,
+    height : headerHeight,
     paddingTop:20,
     flexDirection : 'row',
     backgroundColor : '#333',
@@ -189,6 +269,7 @@ const styles = StyleSheet.create({
     width : avatarWidth,
     height : avatarWidth,
     borderRadius : avatarWidth/2,
+    marginRight : 5
   },
   articleTitle : {
     fontSize : 16,
@@ -204,7 +285,7 @@ const styles = StyleSheet.create({
 
 const fontSize = 14;
 const titleMargin = 5;
-const {height, width} = Dimensions.get('window');
+
 const htmlStyles = StyleSheet.create({
 	p: {
 		//lineHeight: fontSize * 1.4,
@@ -350,15 +431,24 @@ const htmlStyles = StyleSheet.create({
 		margin: 10
 	}
 });
-const mapActionCreators = (dispatch) => ({
-  comment : bindActionCreators(CommentActions , dispatch),
-  detail : bindActionCreators(DetailActions , dispatch),
-})
 
-const mapStateToProps = (state)=>
-({
-  Comment : state.Comment,
-  Detail : state.Detail
-})
-
-export default connect (mapStateToProps , mapActionCreators)(Comment)
+export const LayoutComponent = Comment;
+export function mapStateToProps(state){
+  return {
+    User : state && state.User,
+    Comment : state.Comment,
+    Detail : state.Detail
+  }
+}
+// const mapActionCreators = (dispatch) => ({
+//   comment : bindActionCreators(CommentActions , dispatch),
+//   detail : bindActionCreators(DetailActions , dispatch),
+// })
+//
+// const mapStateToProps = (state)=>
+// ({
+//   Comment : state.Comment,
+//   Detail : state.Detail
+// })
+//
+// export default connect (mapStateToProps , mapActionCreators)(Comment)
