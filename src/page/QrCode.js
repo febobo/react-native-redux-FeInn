@@ -28,11 +28,11 @@ class QrCode extends Component {
   }
 
   componentWillMount (){
-    // const { navigator , actions } = this.props;
-    // actions.checkToken('89f37401-8659-4535-9f16-b31068495928' || data.data , ()=>{
-    //   navigator.pop();
-    //   actions.toast('登陆成功',3000)
-    // })
+    const { navigator , actions } = this.props;
+    actions.checkToken('89f37401-8659-4535-9f16-b31068495928' || data.data , ()=>{
+      navigator.pop();
+      actions.toast('登陆成功',3000)
+    })
   }
 
   barcodeReceived(e) {

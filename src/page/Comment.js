@@ -49,11 +49,20 @@ class Comment extends Component {
   }
 
   reply (){
-    const { actions } = this.props;
+    const { actions ,Detail } = this.props;
     if(!this.textInputValue){
       return actions.toast('评论不能为空')
     }
     console.log(this)
+    actions.replyTopicById({
+      topicId: Detail.data.id,
+			content: '21212',
+			// replyId: this.replyId,
+			user: {
+				loginname: '212',
+				avatar_url: '2212'
+			}
+    })
   }
   componentUnMount(){
     this.keyboardWillHideEvent.remove()
