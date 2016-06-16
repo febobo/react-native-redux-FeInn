@@ -9,8 +9,17 @@ export const replyTopicById = createAction(types.REPLY_TOPIC , topicService.repl
   replyId,
   user
 } , resolved , rejected) => {
-  console.log(resolved)
   resolved();
   return {
+    topicId,
+    content : markdown.parse(content),
+    replyId,
+    user
+  }
+})
+
+export const getTopicDetail = createAction(types.GET_TOPIC_DETAIL , topicService.getReply ,(id) =>{
+  return {
+    id
   }
 })

@@ -59,6 +59,8 @@ class Essence extends Component {
 
   _getList(params){
     const { getList } = this.props.actions;
+    const { data } = this.props.Essence
+    if(data && data.length && page == 1) return;
     getList(params)
   }
 

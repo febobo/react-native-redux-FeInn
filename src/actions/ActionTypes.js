@@ -6,3 +6,4 @@ export const CHECK_TOKEN = 'CHECK_TOKEN' // 检查token
 export const TOAST = 'TOAST'; // 吐司
 export const REPLY_TOPIC = 'REPLY_TOPIC'; // 评论
 export const UPS_TOPIC = 'UPS_TOPIC'; // topic 点赞
+export const GET_TOPIC_DETAIL = 'GET_TOPIC_DETAIL'
