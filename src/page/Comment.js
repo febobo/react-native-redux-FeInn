@@ -22,6 +22,8 @@ import { connect } from 'react-redux';
 import TabShow from '../components/TabShow';
 import connectComponent from '../utils/connectComponent';
 import config from '../config';
+import * as QrCodeComponent from './QrCode';
+const QrCode = connectComponent(QrCodeComponent);
 
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
@@ -58,7 +60,11 @@ class Comment extends Component {
   }
 
   reply (name){
-    const { actions ,Detail } = this.props;
+    const { actions ,Detail , User , navigator} = this.props;
+    if(!User.data){
+      return actions.toast('登陆后评论！',2000)
+    }
+
     if(!this.textInputValue){
       return actions.toast('评论不能为空')
     }
@@ -78,8 +84,12 @@ class Comment extends Component {
 
   _onAuthorTextPress(authorName) {
 		// if (!this.props.user) return;
-		let text = (this.textInputValue || '') + ` @${authorName} `;
+    const { actions ,User} = this.props;
+    if(!User.data){
+      return actions.toast('登陆后评论！',2000)
+    }
 
+		let text = (this.textInputValue || '') + ` @${authorName} `;
 		this.textInput.setNativeProps({
 			text: text
 		});
@@ -103,12 +113,26 @@ class Comment extends Component {
     this._scrollToTop()
 	}
 
+  _upreply (id){
+    const { actions } = this.props;
+    actions.upReply(id);
+  }
+
+  goLogin(){
+    const { navigator } = this.props;
+    navigator.push({
+      component : QrCode
+    })
+  }
+
   componentUnMount(){
     this.keyboardWillHideEvent.remove()
     this.keyboardWillShowEvent.remove()
   }
+
+
   render (){
-    console.log(this)
+
     const pointContent = (()=>{
       return (
         <Icon
@@ -119,7 +143,8 @@ class Comment extends Component {
       )
     })();
 
-    const { Comment , navigator} = this.props;
+    const { Comment , navigator , User} = this.props;
+    console.log(this)
     return (
       <View style={[styles.container]}>
         <View style={[styles.commentHeader]}>
@@ -160,41 +185,50 @@ class Comment extends Component {
             </View>
           }
         </View>
-        <View style={[styles.commentBox]}>
-          <Image
-            style={[styles.article,styles.authorHeader]}
-            source={{uri : 'http://test.imgs.wn518.com/upimages/ys-sales/2016-05-05/fc37e0ae1cdc0282019f3d7d25d6fcdf_1_0_0_480_480_0.jpg'}}
-          />
-          <View style={{flex:1}}>
-            <TextInput
-               ref={(view) => this.textInput = view}
+        {
+          User.data ?
+          <View style={[styles.commentBox]}>
+            <Image
+              style={[styles.article,styles.authorHeader]}
+              source={{uri : User.data.avatar_url}}
+            />
+            <View style={{flex:1}}>
+              <TextInput
+                 ref={(view) => this.textInput = view}
 
-               onChangeText={(text) => {
-                               this.textInput.setNativeProps({
-                                   text: text
-                               });
-                               this.textInputValue = text;
-                           }}
-               style={{height: 40, borderWidth:1,borderColor:'#eee'}}
-               placeholder="说说我的看法"
-               placeholderTextColor="#ccc"
-               keyboardType={"default"}
+                 onChangeText={(text) => {
+                                 this.textInput.setNativeProps({
+                                     text: text
+                                 });
+                                 this.textInputValue = text;
+                             }}
+                 style={{height: 40, borderWidth:1,borderColor:'#eee'}}
+                 placeholder="说说我的看法"
+                 placeholderTextColor="#ccc"
+                 keyboardType={"default"}
 
-             />
-          </View>
-          <View>
-            <TouchableOpacity
-              style={[styles.replyBtn]}
-              onPress={()=>this.reply()}
-            >
-              <Icon
-                name='ios-undo'
-                size={ 30 }
-                color='#ccc'
-              />
+               />
+            </View>
+            <View>
+              <TouchableOpacity
+                style={[styles.replyBtn]}
+                onPress={()=>this.reply()}
+              >
+                <Icon
+                  name='ios-undo'
+                  size={ 30 }
+                  color='#ccc'
+                />
+              </TouchableOpacity>
+            </View>
+          </View> :
+          <View style={[styles.commentBox,{flexDirection:'row',alignItems:'center',justifyContent:"center"}]}>
+            <TouchableOpacity onPress={()=>this.goLogin()}>
+            <Text style={{fontSize:20,color:'#ccc',flex : 1,textAlign:'center'}}>登录后评论</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        }
+
       </View>
     )
   }
@@ -227,7 +261,7 @@ class Comment extends Component {
           />
           <View style={styles.undo}>
             <TouchableOpacity
-              onPress={()=>this.reply(rowData.author.loginname)}
+              onPress={()=>this._upreply(rowData)}
             >
               <View>
                 <Icon
@@ -496,15 +530,3 @@ export function mapStateToProps(state){
     Detail : state.Detail
   }
 }
-// const mapActionCreators = (dispatch) => ({
-//   comment : bindActionCreators(CommentActions , dispatch),
-//   detail : bindActionCreators(DetailActions , dispatch),
-// })
-//
-// const mapStateToProps = (state)=>
-// ({
-//   Comment : state.Comment,
-//   Detail : state.Detail
-// })
-//
-// export default connect (mapStateToProps , mapActionCreators)(Comment)

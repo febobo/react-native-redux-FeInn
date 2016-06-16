@@ -23,3 +23,9 @@ export const getTopicDetail = createAction(types.GET_TOPIC_DETAIL , topicService
     id
   }
 })
+
+export const upReply = createAction(types.UP_REPLY , topicService.upReply ,(id) =>{
+  return {
+    id
+  }
+})

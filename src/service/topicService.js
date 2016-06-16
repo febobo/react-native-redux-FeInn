@@ -32,3 +32,14 @@ export function getReply(id){
     }
   })
 }
+
+export function upReply(id){
+  let url = `/reply/${id}/ups`;
+  return requestService.get(url).then( data =>{
+    if(data.success){
+      return data.action == 'up'
+    }else{
+      throw 'do get topic failed'
+    }
+  })
+}

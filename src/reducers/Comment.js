@@ -7,7 +7,7 @@ const initialState = {
 function reply(topicId , replyId , content , user , state , payload){
 
   let topic = state.topics.data;
-  
+
   topic.replies = topic.replies.reverse().concat([{
     topicId,
     replyId,
@@ -25,7 +25,6 @@ function reply(topicId , replyId , content , user , state , payload){
 }
 
 export default function Comment (state=initialState , action={}){
-  console.log(state,action)
   const { payload , meta={} } = action;
   const { topicId, content, replyId , user  } = meta;
   switch (action.type) {
@@ -38,6 +37,9 @@ export default function Comment (state=initialState , action={}){
           topics : payload
         }
       )
+      break;
+    case types.UP_REPLY:
+      return upReply(topicId , replyId , content , user , state , payload)
       break;
     default:
       return state;
