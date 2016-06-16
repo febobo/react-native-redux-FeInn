@@ -2,7 +2,6 @@ import * as requestService from './requestService';
 import {getToken, setToken} from './tokenService';
 
 export function reply({topicId , content , replyId}){
-  console.log(arguments)
   let body = {
     accesstoken : getToken() || '89f37401-8659-4535-9f16-b31068495928',
     content
@@ -19,6 +18,28 @@ export function reply({topicId , content , replyId}){
       return data.reply_id
     }else{
       throw 'do reply failed'
+    }
+  })
+}
+
+export function getReply(id){
+  let url = `/topic/${id}`;
+  return requestService.get(url).then( data =>{
+    if(data.success){
+      return data
+    }else{
+      throw 'do get topic failed'
+    }
+  })
+}
+
+export function upReply(id){
+  let url = `/reply/${id}/ups`;
+  return requestService.get(url).then( data =>{
+    if(data.success){
+      return data.action == 'up'
+    }else{
+      throw 'do get topic failed'
     }
   })
 }
