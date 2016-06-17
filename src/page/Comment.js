@@ -113,9 +113,22 @@ class Comment extends Component {
     this._scrollToTop()
 	}
 
-  _upreply (id){
-    const { actions } = this.props;
-    actions.upReply(id);
+  _upreply (row){
+    const { actions ,User} = this.props;
+    if(!User.data){
+      return actions.toast('登陆后点赞！',2000)
+    }
+
+    if(User.data.loginname == row.author.loginname ){
+      return actions.toast('不能给自己点赞！',2000)
+    }
+    actions.upReply({
+      topicId:222,
+      replyId : row.id,
+      userName : User.data.loginname
+    } ,()=>{
+      console.log('okkok111')
+    });
   }
 
   goLogin(){
@@ -169,7 +182,7 @@ class Comment extends Component {
             Comment.topics.data && Comment.topics.data.replies && Comment.topics.data.replies.length !=0 ?
             <ListView
               ref={(view) => this._listView = view}
-              dataSource={ds.cloneWithRows(Comment.topics.data.replies.reverse())}
+              dataSource={ds.cloneWithRows(Comment.topics.data.replies.concat([]).reverse())}
               renderRow={this._renderRow.bind(this)}
               initialListSize={10}
               onEndReachedThreshold={0}
@@ -263,12 +276,18 @@ class Comment extends Component {
             <TouchableOpacity
               onPress={()=>this._upreply(rowData)}
             >
-              <View>
+              <View style={styles.up}>
                 <Icon
                   name='md-thumbs-up'
                   size={ 20 }
                   color='#ccc'
                 />
+                <Text style={styles.upNum}>
+                  {
+                    rowData.ups.length ?
+                    rowData.ups.length : null
+                  }
+                </Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -316,6 +335,15 @@ const styles = StyleSheet.create({
   undo : {
     flexDirection : 'row',
     justifyContent : 'space-between'
+  },
+  up : {
+    flex : 1,
+    flexDirection : 'row',
+    alignItems : 'center'
+  },
+  upNum : {
+    marginLeft : 3,
+    color : '#ccc'
   },
   commentHeader : {
     height : headerHeight,

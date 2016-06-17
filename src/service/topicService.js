@@ -33,9 +33,12 @@ export function getReply(id){
   })
 }
 
-export function upReply(id){
-  let url = `/reply/${id}/ups`;
-  return requestService.get(url).then( data =>{
+export function upReply({replyId}){
+  let url = `/reply/${replyId}/ups`;
+  let body = {
+    accesstoken : getToken() || '89f37401-8659-4535-9f16-b31068495928',
+  }
+  return requestService.post(url,body).then( data =>{
     if(data.success){
       return data.action == 'up'
     }else{
