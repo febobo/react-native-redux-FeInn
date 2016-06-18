@@ -8,7 +8,8 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
-  Vibration
+  Vibration,
+  Platform
 } from 'react-native';
 import TabShow from '../components/TabShow';
 import Camera from 'react-native-camera';
@@ -35,8 +36,6 @@ class QrCode extends Component {
     })
   }
 
-  barcodeReceived(e) {
-  }
 
   takePicture() {
     this.camera.capture()
@@ -66,13 +65,22 @@ class QrCode extends Component {
           color='rgba(255,255,255,1)'
         />
       )
-    })();
-    // <BarcodeScanner
-    //   onBarCodeRead={this.barcodeReceived}
-    //   style={{ flex: 1 }}
-    //   torchMode={this.state.torchMode}
-    //   cameraType={this.state.cameraType}
-    // />
+    })
+    // for android
+		if (Platform.OS === 'android') {
+			return (
+				<View style={styles.container}>
+					<BarcodeScanner
+						onBarCodeRead={this._onBarCodeRead.bind(this)}
+						style={styles.cameraViewWrap}/>
+          <TabShow {...this.props}
+            content={pointContent}
+            wrapStyle={styles.wrapStyle}
+           />
+				</View>
+			)
+		}
+
     return (
       <View style={[styles.container]}>
         <Camera

@@ -84,7 +84,7 @@ class Essence extends Component {
       <View style={[styles.container]}>
         {
           data ?
-          <RefreshableListView
+          <ListView
             dataSource={ds.cloneWithRows(data)}
             renderRow={this._renderRow.bind(this)}
             initialListSize={10}
@@ -96,11 +96,7 @@ class Essence extends Component {
             pagingEnabled={true}
             loadData={this._loadData.bind(this)}
             refreshDescription="正在加载..."
-            refreshingIndicatorComponent={
-              <RefreshableListView.RefreshingIndicator
-                description='下拉刷新'
-              />
-            }
+
             renderFooter={null}
           /> :
           null

@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import { Navigator , View , Text , Image , StyleSheet} from 'react-native';
+import { Navigator , View , Text , Image , StyleSheet , Dimensions} from 'react-native';
 import { bindActionCreators } from 'redux';
 import Essence from '../page/Essence';
 import * as EssenceActions from '../actions/EssenceActions';
@@ -27,8 +27,8 @@ class FeInnApp extends Component {
     let defaultName = '精选';
     let defaultComponent = TabView;
     return (
-      <Image
-				style={styles.bg}>
+      <View
+        style={styles.bg}>
         <Navigator
             initialRoute={{ name: defaultName, component: defaultComponent }}
             configureScene={(route) => {
@@ -40,16 +40,32 @@ class FeInnApp extends Component {
             }}
         />
         <Toast ref={ (view)=> this.toast=view }/>
-      </Image>
+      </View>
     )
   }
 }
+// <Image
+//   style={styles.bg}>
+//   <Navigator
+//       initialRoute={{ name: defaultName, component: defaultComponent }}
+//       configureScene={(route) => {
+//         return Navigator.SceneConfigs.HorizontalSwipeJump;
+//       }}
+//       renderScene={(route, navigator) => {
+//           let Component = route.component;
+//           return <Component {...this.props} {...route.params} navigator={navigator} />
+//       }}
+//   />
+//   <Toast ref={ (view)=> this.toast=view }/>
+// </Image>
 
-
+const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
 	bg: {
 		flex: 1,
-		// backgroundColor: 'transparent'
+    height,
+		width,
+		backgroundColor: 'transparent'
 	}
 });
 export const LayoutComponent = FeInnApp;

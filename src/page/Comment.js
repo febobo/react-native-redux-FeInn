@@ -74,8 +74,8 @@ class Comment extends Component {
 			content: this.textInputValue + config.replySuffix,
 			// replyId: this.replyId,
 			user: {
-				loginname: 'test',
-				avatar_url: 'http://test.imgs.wn518.com/upimages/ys-sales/2016-05-05/fc37e0ae1cdc0282019f3d7d25d6fcdf_1_0_0_480_480_0.jpg'
+				loginname: User.data.loginname,
+				avatar_url: User.data.avatar_url
 			}
     },()=>{
       this._resetReplyForm()
@@ -97,6 +97,7 @@ class Comment extends Component {
 	}
 
   _scrollToTop() {
+    console.log(this._listView)
 		this._listView.scrollTo({
 			x: 0,
 			y: 0
