@@ -45,7 +45,7 @@ use xcode open react-native-redux-es6/ios/demo.xcodeproj, then click run
 or ```$ open FeInn.xcodeproj```,then click run  
 
 
-![使用Navigator](http://g.recordit.co/u0VZC4PtNb.gif)
+![使用Navigator](http://g.recordit.co/u0VZC4PtNb.gif)![使用Navigator](http://g.recordit.co/RZFws22WVD.gif)
 
 ### For Android 
 ```
