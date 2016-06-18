@@ -7,7 +7,8 @@ import {
   StyleSheet,
   Dimensions,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native';
 import TabShow from '../components/TabShow';
 import Camera from 'react-native-camera';
@@ -24,17 +25,24 @@ class Login extends Component {
 
   login (){
     const { navigator } = this.props;
-    Camera.checkDeviceAuthorizationStatus().then( (isAuth) =>{
-      if(isAuth){
-        navigator.push({
-          component : QrCode
-        })
-      }else{
-        alert('请前往设置')
-      }
-    }).catch( (err) =>{
-      alert(err)
-    })
+    if(Platform.OS == 'ios'){
+      Camera.checkDeviceAuthorizationStatus().then( (isAuth) =>{
+        if(isAuth){
+          navigator.push({
+            component : QrCode
+          })
+        }else{
+          actions.toast('请在设置中开启Noder对相机的访问')
+        }
+      }).catch( (err) =>{
+        actions.toast('获取相机访问权错误');
+      })
+    }else{
+      navigator.push({
+        component : QrCode
+      })
+    }
+
 
     // data.then((res)=>{
     //   console.log(res)

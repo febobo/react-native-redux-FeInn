@@ -9,7 +9,6 @@ export const replyTopicById = createAction(types.REPLY_TOPIC , topicService.repl
   replyId,
   user
 } , resolved , rejected) => {
-  console.log(resolved,rejected,23443)
   resolved();
   return {
     topicId,
@@ -30,9 +29,6 @@ export const upReply = createAction(types.UP_REPLY , topicService.upReply , ({
   replyId,
   userName
 } , resolved , rejected) => {
-  console.log(  topicId,
-    replyId,
-    userName,233)
   resolved && resolved();
   return {
     topicId,
