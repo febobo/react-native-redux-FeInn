@@ -4,11 +4,14 @@ import Detail from './Detail'
 import Comment from './Comment'
 import User from './User'
 import Utils from './Utils'
+import Acticle from './Acticle'
+
 export {
   Essence,
   Tab,
   Detail,
   Comment,
   User,
-  Utils
+  Utils,
+  Acticle
 }

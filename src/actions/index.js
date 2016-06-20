@@ -4,6 +4,7 @@ import * as UserActions from './UserActions'
 import * as TabActions from './TabActions'
 import * as UtilsActions from './UtilsActions'
 import * as CommentActions from './CommentActions'
+import * as ActicleActions from './ActicleActions'
 
 export default {
   ...DetailActions,
@@ -11,5 +12,6 @@ export default {
   ...TabActions,
   ...UserActions,
   ...UtilsActions,
-  ...CommentActions
+  ...CommentActions,
+  ...ActicleActions
 }

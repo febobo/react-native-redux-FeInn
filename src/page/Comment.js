@@ -97,7 +97,6 @@ class Comment extends Component {
 	}
 
   _scrollToTop() {
-    console.log(this._listView)
 		this._listView.scrollTo({
 			x: 0,
 			y: 0

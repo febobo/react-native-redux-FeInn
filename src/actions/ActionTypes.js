@@ -8,3 +8,4 @@ export const REPLY_TOPIC = 'REPLY_TOPIC'; // 评论
 export const UPS_TOPIC = 'UPS_TOPIC'; // topic 点赞
 export const GET_TOPIC_DETAIL = 'GET_TOPIC_DETAIL'; // 获取文章详情
 export const UP_REPLY = 'UP_REPLY'; // 评论点赞
+export const GET_PHOTO = 'GET_PHOTO'; // 评论点赞
