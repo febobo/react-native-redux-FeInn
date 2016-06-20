@@ -11,7 +11,6 @@ import {
   Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import HTMLView from 'react-native-htmlview';
 import moment from 'moment';
 import RefreshableListView from 'react-native-refreshable-listview';
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
@@ -246,8 +245,3 @@ const styles = StyleSheet.create({
 })
 
 export const LayoutComponent = Essence;
-// export function mapStateToProps(state){
-//   return {
-//     User : state && state.User
-//   }
-// }

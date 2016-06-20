@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   Dimensions
 } from 'react-native';
+import LightBox from 'react-native-lightbox'
+import Carousel from 'react-native-looped-carousel'
 
 class Article extends Component {
   constructor (props){
@@ -50,6 +52,47 @@ class Article extends Component {
     )
   }
 
+  _lightImg(item){
+    // console.log(item)
+    const { Acticle } = this.props;
+    const imgs = [];
+    const urlArr = [];
+    Acticle && Acticle.photos.length && Acticle.photos.map( (v,k) =>{
+        urlArr.push(v.url);
+        imgs.push(
+          <View style={{flex: 1}} key={k}>
+            <Image
+              style={{flex: 1}}
+              resizeMode="contain"
+              source={{ uri: v.url }}
+            />
+          </View>
+        )
+    })
+    imgs.unshift(
+      <View style={{flex: 1}} key='212'>
+        <Image
+          style={{flex: 1}}
+          resizeMode="contain"
+          source={{ uri: item.url }}
+        />
+      </View>
+    )
+    let inx = urlArr.findIndex( (v,k,arr) => {
+      return v == item.url;
+    })
+    imgs.splice(inx,1);
+    return (
+      <Carousel
+        style={{ width: width, height: height }}
+        autoplay={false}
+      >
+        {imgs}
+      </Carousel>
+    );
+  }
+
+
   _renderImg(imgs){
     return (
       imgs.map( (v,k) =>{
@@ -57,10 +100,14 @@ class Article extends Component {
           <TouchableOpacity
             key={'photo-' + k}
           >
-            <Image
-              style={{width:width/2,height:parseInt(Math.random() * (width/4) + (width/2))}}
-              source={{uri : v.url}}
-            />
+            <LightBox
+              renderContent={()=>this._lightImg(v)}
+            >
+              <Image
+                style={{width:width/2,height:parseInt(Math.random() * (width/4) + (width/2))}}
+                source={{uri : v.url}}
+              />
+            </LightBox>
           </TouchableOpacity>
         )
       })
