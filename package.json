@@ -16,6 +16,8 @@
     "react-native-barcodescanner": "^3.0.0",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-html-render": "^1.0.3",
+    "react-native-lightbox": "^0.6.0",
+    "react-native-looped-carousel": "0.0.12",
     "react-native-refreshable-listview": "^2.0.0-beta4",
     "react-native-tab-navigator": "^0.3.2",
     "react-native-vector-icons": "^2.0.2",

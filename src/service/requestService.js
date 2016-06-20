@@ -17,22 +17,22 @@ function filterJSON(res) {
 	return res.json();
 }
 
-export function get(url , params){
-  url = urlPrefix + url;
-  if(params){
-    url += `?${params}`
-  }
+export function get(url,istrue){
+	if(!istrue){
+		url = urlPrefix + url;
+	}
 
   if(__DEV__){
     console.info(`GET:` , url )
-    console.info(`params:` , params )
   }
 
   return fetch(url).then(filterStatus).then(filterJSON)
 }
 
-export function post(url, body) {
-	url = urlPrefix + url;
+export function post(url, body , istrue) {
+	if(!istrue){
+		url = urlPrefix + url;
+	}
 
 	if (__DEV__) {
 		console.info(`POST: `, url);
