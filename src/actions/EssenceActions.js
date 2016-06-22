@@ -1,7 +1,6 @@
 import * as types from './actionTypes';
 
 export function essenceList(data , getState){
-  console.log(getState().Essence && getState().Essence.data)
   let oldList = (getState().Essence && getState().Essence.data && getState().Essence.data.concat(data))  || data;
   return {
     type : types.INDEX_LIST,
@@ -18,7 +17,6 @@ export function isDownLoad(isLoad){
 
 // 首页列表
 export function getList(params , cb){
-  console.log(params)
   return (dispatch , getState) => {
     fetch('https://cnodejs.org/api/v1/topics?' + params)
     .then(res => res.json())
