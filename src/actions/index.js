@@ -5,6 +5,7 @@ import * as TabActions from './TabActions'
 import * as UtilsActions from './UtilsActions'
 import * as CommentActions from './CommentActions'
 import * as ActicleActions from './ActicleActions'
+import * as WelfareActions from './WelfareActions'
 
 export default {
   ...DetailActions,
@@ -13,5 +14,6 @@ export default {
   ...UserActions,
   ...UtilsActions,
   ...CommentActions,
-  ...ActicleActions
+  ...ActicleActions,
+  ...WelfareActions
 }

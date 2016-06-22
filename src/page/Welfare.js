@@ -6,15 +6,23 @@ import {
   StyleSheet
 } from 'react-native';
 
-export default class Welfare extends Component {
+class Welfare extends Component {
   constructor (props){
     super(props);
+  }
+
+  componentWillMount (){
+    console.log(this)
+    const { actions , Welfare } = this.props;
+    actions.getVideo({
+      page : Welfare.page,
+      limit: Welfare.limit
+    })
   }
 
   render (){
     return (
       <View style={[styles.container]}>
-        <Text style={{fontSize:30,color:'#fff'}}>Hello React-native</Text>
       </View>
     )
   }
@@ -23,8 +31,12 @@ export default class Welfare extends Component {
 const styles = StyleSheet.create({
   container : {
     flex : 1,
-    alignItems : 'center',
-    justifyContent : 'center',
-    backgroundColor : '#730'
   }
 })
+
+export const LayoutComponent = Welfare;
+export function mapStateToProps(state){
+  return {
+    Welfare : state.Welfare,
+  }
+}
