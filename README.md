@@ -1,6 +1,10 @@
  
 # react native redux FeInn 从零到1让你学会搭建一个APP
 
+[![GitHub stars](https://img.shields.io/github/stars/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/network)
+[![GitHub issues](https://img.shields.io/github/issues/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/issues)
+
 ### About
 FeInn 致力于让每一个愿意动手的人都能徒手写APP  
 使用分支管理循序渐进，建议新手从0.0.1读起  
