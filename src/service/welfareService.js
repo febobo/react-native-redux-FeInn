@@ -7,6 +7,7 @@ export function getVideo({page,limit}){
   let url = `${urlPrefix}&type=41&limit=${limit}&page=${page}`;
   // let url = `${urlPrefix}`;
   return requestService.get(url,true).then( data =>{
+    console.log(data,99999)
     if(!data.showapi_res_error){
       return {
         list : data.showapi_res_body.pagebean.contentlist,

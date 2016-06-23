@@ -12,8 +12,8 @@ class Welfare extends Component {
   }
 
   componentWillMount (){
-    console.log(this)
     const { actions , Welfare } = this.props;
+    console.log(actions)
     actions.getVideo({
       page : Welfare.page,
       limit: Welfare.limit
