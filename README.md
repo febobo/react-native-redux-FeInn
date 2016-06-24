@@ -1,7 +1,5 @@
  
 # react native redux FeInn 从零到1让你学会搭建一个APP
-[![CircleCI](https://circleci.com/gh/febobo/react-native-redux-FeInn.svg?style=svg)](https://circleci.com/gh/ali322/CNodeRN)
-[![Dependency Status](https://gemnasium.com/badges/github.com/febobo/react-native-redux-FeInn.svg)](https://gemnasium.com/github.com/ali322/CNodeRN)
 [![GitHub stars](https://img.shields.io/github/stars/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/network)
 [![GitHub issues](https://img.shields.io/github/issues/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/issues)
