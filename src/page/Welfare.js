@@ -17,7 +17,9 @@ class Welfare extends Component {
   constructor (props){
     super(props);
     this.renderVideoRow = this.renderVideoRow.bind(this);
+    this.loadList = this.loadList.bind(this);
     this._onEndReached = this._onEndReached.bind(this);
+    this._onRefresh = this._onRefresh.bind(this);
   }
 
   componentWillMount (){
@@ -76,16 +78,17 @@ class Welfare extends Component {
     return (
       <View style={[styles.container]}>
         <ListView
-          dataSource={ds.cloneWithRows(Welfare.videos)}
+          dataSource={ds.cloneWithRows(Welfare.videos || [])}
           renderRow={this.renderVideoRow}
           pageSize={3}
           initialListSize={3}
           onEndReached={this._onEndReached}
           onEndReachedThreshold={0}
           removeClippedSubviews={true}
+          enableEmptySections={true}
           refreshControl={
             <RefreshControl
-              refreshing={true}
+              refreshing={Welfare.getVideoIsPending || false}
               onRefresh={this._onRefresh}
               tintColor="#ff0000"
               title="Loading..."
