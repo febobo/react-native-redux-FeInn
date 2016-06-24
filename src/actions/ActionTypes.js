@@ -10,3 +10,4 @@ export const GET_TOPIC_DETAIL = 'GET_TOPIC_DETAIL'; // 获取文章详情
 export const UP_REPLY = 'UP_REPLY'; // 评论点赞
 export const GET_PHOTO = 'GET_PHOTO'; // 照片列表
 export const GET_VIDEO = 'GET_VIDEO'; // 视频列表
+export const GET_VIDEO_START = 'GET_VIDEO_START'; // 开始请求视频列表
