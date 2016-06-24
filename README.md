@@ -17,8 +17,8 @@ FeInn 致力于让每一个愿意动手的人都能徒手写APP
 - [x] 使用Fetch
 - [x] 使用ListView
 - [ ] 增加qq,微信第3方分享功能
-- [ ] 支持图片瀑布流浏览
-- [ ] 增加视频音频播放功能
+- [x] 支持图片瀑布流浏览
+- [x] 增加视频音频播放功能
 
 ### Branch
 * [FeInn-v0.0.1 Redux环境搭建](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.1)
@@ -29,6 +29,7 @@ FeInn 致力于让每一个愿意动手的人都能徒手写APP
 * [FeInn-v0.0.6 增加扫码登陆](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.6)
 * [FeInn-v0.0.7 增加评论点赞](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.7)
 * [FeInn-v0.0.8 兼容Android](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.8) 
+* [FeInn-v0.0.9 RN升级到0.28,增加视频播放](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.9) 
 
 ### Requirements
 * node  
@@ -49,7 +50,7 @@ use xcode open react-native-redux-es6/ios/demo.xcodeproj, then click run
 or ```$ open FeInn.xcodeproj```,then click run  
 
 
-![使用Navigator](http://g.recordit.co/u0VZC4PtNb.gif)![使用Navigator](http://g.recordit.co/k7ZiADqslL.gif)
+![使用Navigator](http://g.recordit.co/u0VZC4PtNb.gif)![使用Navigator](http://g.recordit.co/k7ZiADqslL.gif)![video](http://g.recordit.co/jXF5deeLUn.gif)
 
 ### For Android 
 ```
