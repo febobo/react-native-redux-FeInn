@@ -1,11 +1,12 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-	topics: {}
+	topics: {},
+	getTopicsIsPending : true
 };
 
-function reply(topicId , replyId , content , user , state , payload){
-
+function reply(topicId , replyId , content , user , state , payload , sequence){
+	if(sequence.type == 'start') return state;
   let topic = state.topics.data;
 
   topic.replies = topic.replies.concat([{
@@ -46,7 +47,7 @@ function upReply(topicId , replyId , userName , isUp , state){
 			}
 		})
 	}
-	
+
   return {
     ...state,
     topics : { data : topic}
@@ -55,20 +56,22 @@ function upReply(topicId , replyId , userName , isUp , state){
 
 export default function Comment (state=initialState , action={}){
   const { payload , meta={} } = action;
-  const { topicId, content, replyId , user ,userName } = meta;
+  const { topicId, content, replyId , user ,userName , sequence ={}} = meta;
+
   switch (action.type) {
     case types.REPLY_TOPIC:
-      return reply(topicId , replyId , content , user , state , payload)
+      return reply(topicId , replyId , content , user , state , payload , sequence)
       break;
     case types.GET_TOPIC_DETAIL:
       return Object.assign(
         {} , state , {
-          topics : payload
+          topics : sequence.type == 'start' ? state.topics : payload,
+					getTopicsIsPending : sequence.type == 'start' ? true : false
         }
       )
       break;
     case types.UP_REPLY:
-      return upReply(topicId , replyId , userName , payload , state)
+      return upReply(topicId , replyId , userName , payload , state , sequence)
       break;
     default:
       return state;
