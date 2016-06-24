@@ -2,7 +2,6 @@ import config from '../config'
 const urlPrefix = config.domain;
 
 function filterStatus(res) {
-	console.log(res,888)
 	if (res.status >= 200 && res.status < 300) {
 		return res
 	}
@@ -15,7 +14,6 @@ function filterStatus(res) {
 }
 
 function filterJSON(res) {
-	console.log(res,888)
 	return res.json();
 }
 
@@ -27,7 +25,7 @@ export function get(url,istrue){
   if(__DEV__){
     console.info(`GET:` , url )
   }
-	console.log('cao')
+
   return fetch(url).then(filterStatus).then(filterJSON)
 }
 
