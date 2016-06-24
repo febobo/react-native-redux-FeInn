@@ -56,7 +56,7 @@ or ```$ open FeInn.xcodeproj```,then click run
 ```
 $ react-native run-android
 ```
-![使用Navigator](http://g.recordit.co/tAi48R0pYO.gif)![image](https://cloud.githubusercontent.com/assets/9276376/16170534/bfa72d3e-3588-11e6-83b9-25b7789ff2d2.png)
+![使用Navigator](http://g.recordit.co/tAi48R0pYO.gif)![image](https://cloud.githubusercontent.com/assets/9276376/16170534/bfa72d3e-3588-11e6-83b9-25b7789ff2d2.png)![image](https://cloud.githubusercontent.com/assets/9276376/16331877/8d26f0d2-3a25-11e6-8326-f0396d10f363.png)
 
 
 ### PS
