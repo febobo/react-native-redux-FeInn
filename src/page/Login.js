@@ -8,7 +8,8 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
-  Platform
+  Platform,
+  Switch
 } from 'react-native';
 import TabShow from '../components/TabShow';
 import Camera from 'react-native-camera';
@@ -89,6 +90,45 @@ class Login extends Component {
       </View>
     )
   }
+
+  renderOptions (){
+    return (
+      <View>
+        <View style={styles.itemOptions}>
+          <Icon
+            name='md-trash'
+            size={ 20 }
+            color='#333'
+          />
+          <Text style={styles.optionsText}>清除缓存</Text>
+        </View>
+        <View style={styles.itemOptions}>
+          <Icon
+            name='md-sync'
+            size={ 20 }
+            color='#333'
+          />
+          <Text style={styles.optionsText}>检查更新</Text>
+        </View>
+        <View style={styles.itemOptions}>
+          <Icon
+            name='md-key'
+            size={ 20 }
+            color='#333'
+          />
+          <Text style={styles.optionsText}>关于</Text>
+        </View>
+        <View style={styles.itemOptions}>
+          <Icon
+            name='md-power'
+            size={ 20 }
+            color='#333'
+          />
+          <Text style={styles.optionsText}>注销</Text>
+        </View>
+      </View>
+    )
+  }
   render (){
     const pointContent = (()=>{
       return (
@@ -104,6 +144,7 @@ class Login extends Component {
       <View style={[styles.container]}>
         <View>
           {this.renderHeader()}
+          {this.renderOptions()}
         </View>
         <TabShow {...this.props}
           content={pointContent}
@@ -120,6 +161,25 @@ const textColor = '#fff'
 const styles = StyleSheet.create({
   container : {
     flex : 1,
+    backgroundColor:'#f0f0f0'
+  },
+  itemOptions : {
+    flexDirection : 'row',
+    height : 50,
+    borderBottomWidth : 1,
+    borderTopWidth : 1,
+    borderColor : '#eee',
+    alignItems : 'center',
+    paddingHorizontal : 8,
+    // paddingVertical : 10
+    marginTop : 10,
+    backgroundColor : '#fff'
+  },
+  optionsText : {
+    // lineHeight :40,
+    fontSize : 15,
+    paddingHorizontal : 3,
+    color :'#333'
   },
   userImgWrap : {
     flex : 8,

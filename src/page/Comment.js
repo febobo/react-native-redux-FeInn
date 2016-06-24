@@ -10,8 +10,10 @@ import {
   Dimensions,
   TextInput,
   ScrollView,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+  RefreshControl
 } from 'react-native';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import Html from '../utils/Html';
@@ -31,16 +33,25 @@ class Comment extends Component {
   constructor (props){
     super(props);
     this.state = {textInput: ''};
+    this._onRefresh = this._onRefresh.bind(this);
     this.keyboardWillShowEvent = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
 		this.keyboardWillHideEvent = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
   }
 
   componentWillMount(){
+    this.getTopicData();
+  }
+
+  getTopicData (){
     const { data } = this.props.Detail;
     if(data && data.id){
       const { actions } = this.props;
       actions.getTopicDetail(data.id)
     }
+  }
+
+  _onRefresh (){
+    this.getTopicData()
   }
 
   keyboardWillShow (e){
@@ -178,25 +189,37 @@ class Comment extends Component {
           style={[styles.commentList]}
           ref={(view) => this.commentView = view}
         >
-          {
-            Comment.topics.data && Comment.topics.data.replies && Comment.topics.data.replies.length !=0 ?
-            <ListView
-              ref={(view) => this._listView = view}
-              dataSource={ds.cloneWithRows(Comment.topics.data.replies.concat([]).reverse())}
-              renderRow={this._renderRow.bind(this)}
-              initialListSize={10}
-              onEndReachedThreshold={0}
-              pageSize={3}
-              showsVerticalScrollIndicator={true}
-              removeClippedSubviews={true}
-              pagingEnabled={true}
-              refreshDescription="正在加载..."
-              renderFooter={null}
-            /> :
-            <View style={{flexDirection:'row',paddingTop:30,alignItems : 'center',justifyContent : 'center'}}>
-              <Text style={{fontSize:20}}>暂无评论</Text>
-            </View>
+        {
+          !Comment.getTopicsIsPending && Comment.topics.data && Comment.topics.data.replies && !Comment.topics.data.replies.length ?
+          <View style={{flexDirection:'row',paddingTop:30,alignItems : 'center',justifyContent : 'center'}}>
+            <Text style={{fontSize:20,color:'#eee'}}>暂无评论</Text>
+          </View>
+          :null
+        }
+        <ListView
+          ref={(view) => this._listView = view}
+          dataSource={ds.cloneWithRows(Comment.topics.data && Comment.topics.data.replies && Comment.topics.data.replies.length && Comment.topics.data.replies.concat([]).reverse() || [])}
+          renderRow={this._renderRow.bind(this)}
+          initialListSize={10}
+          onEndReachedThreshold={0}
+          pageSize={3}
+          showsVerticalScrollIndicator={true}
+          removeClippedSubviews={true}
+          pagingEnabled={true}
+          renderFooter={null}
+          enableEmptySections={true}
+          refreshControl={
+            <RefreshControl
+              refreshing={Comment.getTopicsIsPending || false}
+              onRefresh={this._onRefresh}
+              tintColor="#ff0000"
+              title="Loading..."
+              colors={['#ff0000', '#00ff00', '#0000ff']}
+              progressBackgroundColor="#ffff00"
+            />
           }
+        />
+
         </View>
         {
           User.data ?
