@@ -1,13 +1,13 @@
 import * as requestService from './requestService';
 import config from '../config'
-const urlPrefix = config.ghDomain;
-export function getPhoto({page,limit}){
-  let url = `${urlPrefix}/%E7%A6%8F%E5%88%A9/${limit}/${page}`;
+const urlPrefix = config.spDomain;
+export function getVideo({page,limit}){
+  let url = `${urlPrefix}&type=41&limit=${limit}&page=${page}`;
   // let url = `${urlPrefix}`;
   return requestService.get(url,true).then( data =>{
-    if(!data.error){
+    if(!data.showapi_res_error){
       return {
-        list : data.results,
+        list : data.showapi_res_body.pagebean.contentlist,
         params : {
           page,
           limit

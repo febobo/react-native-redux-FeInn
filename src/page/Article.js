@@ -16,14 +16,32 @@ import Carousel from 'react-native-looped-carousel'
 class Article extends Component {
   constructor (props){
     super(props);
+    this._onScroll = this._onScroll.bind(this);
   }
 
   componentWillMount(){
-    const { actions } = this.props;
+    const { actions , Acticle } = this.props;
     actions.getPhoto({
-      page :1,
-      limit:10
+      page : Acticle.page,
+      limit: Acticle.limit
     })
+  }
+
+  _onScroll(e) {
+    const { actions , Acticle } = this.props;
+
+    console.log(22222,this)
+    let scrollH = e.nativeEvent.contentSize.height; //scrollview的高度
+    let y = e.nativeEvent.contentOffset.y;//当前滑动显示的y轴坐标
+    let height = e.nativeEvent.layoutMeasurement.height ;//显示部分高度
+    if (scrollH - y < height) {//处理加载更多
+      // this._loadmore();
+
+      actions.getPhoto({
+        page : Acticle.page + 1,
+        limit: Acticle.limit
+      })
+    }
   }
 
   render (){
@@ -33,14 +51,16 @@ class Article extends Component {
       <View style={[styles.container]}>
       {
         Acticle && Acticle.photos && Acticle.photos.length !=0 ?
-        <ScrollView style={{flex:1}}>
+        <ScrollView style={{flex:1}}
+          onScroll={this._onScroll}
+        >
 
           <View style={styles.imgsWrap}>
             <View style={styles.imgs}>
-              {this._renderImg(Acticle.photos.slice(0,5))}
+              {this._renderImg(Acticle.photos.slice(0,Acticle.photos.length/2))}
             </View>
             <View style={styles.imgs}>
-              {this._renderImg(Acticle.photos.slice(5,10))}
+              {this._renderImg(Acticle.photos.slice(Acticle.photos.length/2,Acticle.photos.length))}
             </View>
           </View>
         </ScrollView> :

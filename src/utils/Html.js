@@ -1,9 +1,8 @@
-import React, {
-	Component,
+import React , { Component ,PropTypes } from 'react';
+import  {
 	StyleSheet,
 	Image,
 	Dimensions,
-	PropTypes
 } from 'react-native';
 import _ from 'lodash';
 import HtmlRender from 'react-native-html-render';

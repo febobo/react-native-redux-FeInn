@@ -26,8 +26,8 @@ const logger = createLogger({
 
 let middlewares = [
   thunk,
-  reduxPromiseMiddleware,
   promiseMiddleware,
+	reduxPromiseMiddleware,
   asyncActionCallbackMiddleware,
   logger,
 ]

@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
-import RefreshableListView from 'react-native-refreshable-listview';
+// import RefreshableListView from 'react-native-refreshable-listview';
 let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
 
 import Article from './Article'

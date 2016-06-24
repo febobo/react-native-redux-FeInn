@@ -237,7 +237,7 @@ class Comment extends Component {
           </View> :
           <View style={[styles.commentBox,{flexDirection:'row',alignItems:'center',justifyContent:"center"}]}>
             <TouchableOpacity onPress={()=>this.goLogin()}>
-            <Text style={{fontSize:20,color:'#ccc',flex : 1,textAlign:'center'}}>登录后评论</Text>
+            <Text style={{fontSize:20,color:'#ccc',textAlign:'center'}}>登录后评论</Text>
             </TouchableOpacity>
           </View>
         }
@@ -259,7 +259,7 @@ class Comment extends Component {
           style={styles.content}
         >
 
-          <View style={{flex : 1,flexDirection:'row',justifyContent : 'space-between'}}>
+          <View style={{flexDirection:'row',justifyContent : 'space-between'}}>
             <View style={{flex:1}} >
               <Text>{rowData.author.loginname}</Text>
             </View>

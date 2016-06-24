@@ -16,13 +16,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const myIcon = (<Icon name="ios-time" size={30} color="#900" />)
 import * as EssencePage from '../page/Essence';
 import * as ArticlePage from '../page/Article';
-import Welfare from '../page/Welfare';
+import * as WelfarePage from '../page/Welfare';
 import * as Login from '../page/Login';
 import connectComponent from '../utils/connectComponent';
 import TabNavigator from 'react-native-tab-navigator';
 import iconHome from '../public/favicon.png';
 const Essence = connectComponent(EssencePage);
 const Article = connectComponent(ArticlePage);
+const Welfare = connectComponent(WelfarePage);
 
 export default class TabView extends Component {
   constructor (props){
@@ -167,8 +168,6 @@ export default class TabView extends Component {
     }
   }
   render(){
-    console.log(222)
-
     return(
       <View style={{flex:1}}>
       {this.renderTabber()}

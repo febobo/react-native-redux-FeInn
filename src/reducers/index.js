@@ -5,7 +5,7 @@ import Comment from './Comment'
 import User from './User'
 import Utils from './Utils'
 import Acticle from './Acticle'
-
+import Welfare from './Welfare'
 export {
   Essence,
   Tab,
@@ -13,5 +13,6 @@ export {
   Comment,
   User,
   Utils,
-  Acticle
+  Acticle,
+  Welfare
 }
