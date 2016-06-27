@@ -14,12 +14,20 @@ import connectComponent from '../utils/connectComponent';
 class FeInnApp extends Component {
   constructor (props){
     super(props);
+    this.configureScene = this.configureScene.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
     if(this.props.Utils.id !== nextProps.Utils.id){
         this.toast.show(nextProps.Utils.text,nextProps.Utils.timeout)
     }
+	}
+
+  configureScene(route) {
+		if (route.sceneConfig) {
+			return route.sceneConfig
+		}
+		return Navigator.SceneConfigs.HorizontalSwipeJump
 	}
 
   render (){
@@ -31,9 +39,7 @@ class FeInnApp extends Component {
         style={styles.bg}>
         <Navigator
             initialRoute={{ name: defaultName, component: defaultComponent }}
-            configureScene={(route) => {
-              return Navigator.SceneConfigs.HorizontalSwipeJump;
-            }}
+            configureScene={this.configureScene}
             renderScene={(route, navigator) => {
                 let Component = route.component;
                 return <Component {...this.props} {...route.params} navigator={navigator} />

@@ -18,10 +18,34 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { randomBg } from '../utils';
 import connectComponent from '../utils/connectComponent';
 import * as QrCodeComponent from './QrCode';
+import About from './About';
 const QrCode = connectComponent(QrCodeComponent);
+
 class Login extends Component {
   constructor (props){
     super(props);
+    this.toAbout = this.toAbout.bind(this);
+    this.clearCache = this.clearCache.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  toAbout (){
+    const { navigator } = this.props;
+    navigator && navigator.push({
+      component : About,
+      sceneConfig : Navigator.SceneConfigs.VerticalUpSwipeJump
+    })
+  }
+
+  clearCache (){
+    const { actions } = this.props;
+    actions.toast('清除成功')
+  }
+
+  logout(){
+    const { actions } = this.props;
+    actions.logout();
+    actions.toast('退出成功')
   }
 
   login (){
@@ -44,15 +68,10 @@ class Login extends Component {
       })
     }
 
-
-    // data.then((res)=>{
-    //   console.log(res)
-    // })
   }
 
   renderHeader (){
     const {isLogin , User} = this.props;
-    console.log(this)
     return (
       <View style={[styles.userHeader,{backgroundColor:randomBg()}]}>
         <View style={styles.userImgWrap}>
@@ -92,8 +111,10 @@ class Login extends Component {
   }
 
   renderOptions (){
+    const { User } = this.props;
     return (
       <View>
+        <TouchableOpacity onPress={this.clearCache.bind(this)}>
         <View style={styles.itemOptions}>
           <Icon
             name='md-trash'
@@ -102,6 +123,8 @@ class Login extends Component {
           />
           <Text style={styles.optionsText}>清除缓存</Text>
         </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
         <View style={styles.itemOptions}>
           <Icon
             name='md-sync'
@@ -110,6 +133,8 @@ class Login extends Component {
           />
           <Text style={styles.optionsText}>检查更新</Text>
         </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.toAbout}>
         <View style={styles.itemOptions}>
           <Icon
             name='md-key'
@@ -118,14 +143,28 @@ class Login extends Component {
           />
           <Text style={styles.optionsText}>关于</Text>
         </View>
-        <View style={styles.itemOptions}>
-          <Icon
-            name='md-power'
-            size={ 20 }
-            color='#333'
-          />
-          <Text style={styles.optionsText}>注销</Text>
-        </View>
+        </TouchableOpacity>
+        {
+          User && User.data ?
+          <TouchableOpacity
+            onPress={this.logout}
+          >
+          <View style={styles.itemOptions}>
+            <Icon
+              name='md-power'
+              size={ 20 }
+              color='#333'
+            />
+            <Text style={styles.optionsText}
+              onPress={this.logout}
+            >
+              注销
+            </Text>
+          </View>
+          </TouchableOpacity>
+          : null
+        }
+
       </View>
     )
   }
