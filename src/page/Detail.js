@@ -33,13 +33,11 @@ class Detail extends Component {
   }
 
   componentWillUnmount(){
-    console.log(this,222)
     const { actions } = this.props;
     actions.clearCacheDetail();
   }
 
   render (){
-    console.log(this)
     const { data } = this.props.Detail;
     const pointContent = (()=>{
       return (

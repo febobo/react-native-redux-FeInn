@@ -101,7 +101,7 @@ class Login extends Component {
         {
           User && User.success ?
           <View style={styles.userInfo}>
-          <Text style={{textAlign:'center',color:textColor}}>2121/122</Text>
+          <Text style={{textAlign:'center',color:textColor}}>积分：{User.data.score || 0}</Text>
           <Text style={{textAlign:'center',color:textColor}}>注册时间：{moment(User.data.create_at).format('l')}</Text>
           </View>
           :null

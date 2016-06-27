@@ -8,7 +8,8 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  RefreshControl
 } from 'react-native';
 import LightBox from 'react-native-lightbox'
 import Carousel from 'react-native-looped-carousel'
@@ -17,20 +18,27 @@ class Article extends Component {
   constructor (props){
     super(props);
     this._onScroll = this._onScroll.bind(this);
+    this.loadList = this.loadList.bind(this);
+    this._onRefresh = this._onRefresh.bind(this);
   }
 
   componentWillMount(){
+    this.loadList()
+  }
+
+  loadList (){
     const { actions , Acticle } = this.props;
     actions.getPhoto({
       page : Acticle.page,
       limit: Acticle.limit
     })
   }
+  _onRefresh (){
+    this.loadList()
+  }
 
   _onScroll(e) {
     const { actions , Acticle } = this.props;
-
-    console.log(22222,this)
     let scrollH = e.nativeEvent.contentSize.height; //scrollview的高度
     let y = e.nativeEvent.contentOffset.y;//当前滑动显示的y轴坐标
     let height = e.nativeEvent.layoutMeasurement.height ;//显示部分高度
@@ -45,7 +53,6 @@ class Article extends Component {
   }
 
   render (){
-    console.log(this)
     const { Acticle } = this.props;
     return (
       <View style={[styles.container]}>
@@ -53,6 +60,16 @@ class Article extends Component {
         Acticle && Acticle.photos && Acticle.photos.length !=0 ?
         <ScrollView style={{flex:1}}
           onScroll={this._onScroll}
+          refreshControl={
+            <RefreshControl
+              refreshing={Acticle.getPhotosIsPending || false}
+              onRefresh={this._onRefresh}
+              tintColor="#ff0000"
+              title="Loading..."
+              colors={['#ff0000', '#00ff00', '#0000ff']}
+              progressBackgroundColor="#ffff00"
+            />
+          }
         >
 
           <View style={styles.imgsWrap}>
