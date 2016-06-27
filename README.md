@@ -50,7 +50,7 @@ use xcode open react-native-redux-es6/ios/demo.xcodeproj, then click run
 or ```$ open FeInn.xcodeproj```,then click run  
 
 
-![使用Navigator](http://g.recordit.co/u0VZC4PtNb.gif)![使用Navigator](http://g.recordit.co/k7ZiADqslL.gif)![video](http://g.recordit.co/jXF5deeLUn.gif)![setting](http://g.recordit.co/r5SADHAH43)
+![使用Navigator](http://g.recordit.co/u0VZC4PtNb.gif)![使用Navigator](http://g.recordit.co/k7ZiADqslL.gif)![video](http://g.recordit.co/jXF5deeLUn.gif)![setting](http://g.recordit.co/r5SADHAH43.gif)
 
 ### For Android 
 ```
