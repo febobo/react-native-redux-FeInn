@@ -26,3 +26,9 @@ export const checkToken = createAction(types.CHECK_TOKEN , async(token) =>{
 		sync: 'user'
 	}
 })
+
+export const logout = function(){
+  return {
+    type : types.LOGOUT
+  }
+}

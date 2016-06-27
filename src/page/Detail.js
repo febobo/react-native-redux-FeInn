@@ -32,6 +32,11 @@ class Detail extends Component {
     getArticleDetail(aid)
   }
 
+  componentWillUnmount(){
+    const { actions } = this.props;
+    actions.clearCacheDetail();
+  }
+
   render (){
     const { data } = this.props.Detail;
     const pointContent = (()=>{
@@ -53,12 +58,13 @@ class Detail extends Component {
         />
       )
     })();
+
     return (
       <View style={[styles.container]}>
       <ScrollView>
       <View style={[styles.container]}>
         {
-          data ?
+          data && data.id?
           <View >
           <View style={[styles.header,{backgroundColor:randomBg()}]}>
             <View>
@@ -77,9 +83,9 @@ class Detail extends Component {
               </Text>
               <View style={styles.titleFooter}>
                 <Icon
-                  name='ios-time'
-                  size={12}
-                  color='rgba(255,255,255,0.5)'
+                  name='ios-time-outline'
+                  size={14}
+                  color='#ccc'
                   style={styles.dateIcon}
                 />
                 <Text style={styles.dateText}>
@@ -127,6 +133,12 @@ const styles = StyleSheet.create({
     left : 20,
     bottom : 25,
   },
+  titleFooter : {
+    flexDirection : 'row',
+    alignItems : 'center',
+    marginTop : 10
+    // justifyContent : 'center',
+  },
   commentWrapStyle : {
     flex : 1,
     position:'absolute',
@@ -167,13 +179,3 @@ export function mapStateToProps(state){
     Detail : state.Detail
   }
 }
-// const mapActionCreators = (dispatch) => ({
-//   detail : bindActionCreators(DetailActions , dispatch),
-// })
-//
-// const mapStateToProps = (state)=>
-// ({
-//   Detail : state.Detail
-// })
-//
-// export default connect (mapStateToProps , mapActionCreators)(Detail)

@@ -29,7 +29,7 @@ export default class TabShow extends Component {
 		return (
       <View style={this.props.wrapStyle}>
         <TouchableOpacity onPress={this._onPress.bind(this)}>
-  				<View style={styles.iconWrapper}>
+  				<View style={[styles.iconWrapper,this.props.appStyle]}>
             {this.props.content}
   				</View>
         </TouchableOpacity>
