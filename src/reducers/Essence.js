@@ -1,12 +1,22 @@
 import * as types from '../actions/actionTypes';
 
-export default function Essence (state={} , action={}){
+const initialState = {
+  data : [],
+  page : 1
+}
+export default function Essence (state=initialState , action={}){
+  console.log(action)
+  const { payload ,error , meta={}} = action;
+  const { sequence ={} } = meta;
   switch (action.type) {
     case types.INDEX_LIST:
+      console.log(sequence.type , 111)
       return Object.assign(
         {} , state , {
-          data : action.data,
-          downLoadStatus : false
+          data : sequence.type == 'start' ? state.data : state.data.concat(payload.data),
+          getTopicsIsPending : sequence.type == 'start' ? true : false,
+          downLoadStatus : false,
+          page : sequence.type == 'start' ? state.page : state.page + 1
         }
       )
       break;

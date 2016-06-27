@@ -19,3 +19,9 @@ export function getArticleDetail(id){
     })
   }
 }
+
+export function clearCacheDetail(){
+  return {
+    type : types.CLEAR_CACHE_DETAIL
+  }
+}

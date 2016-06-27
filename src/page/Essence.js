@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   NavigatorIOS,
   ListView,
-  Image
+  Image,
+  RefreshControl
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -19,15 +20,19 @@ import Article from './Article'
 import * as DetailPage from './Detail'
 import connectComponent from '../utils/connectComponent';
 const Detail = connectComponent(DetailPage);
-var page = 1;
+
+
 class Essence extends Component {
   constructor (props){
     super(props);
+    this._onRefresh = this._onRefresh.bind(this);
   }
 
   componentWillMount (){
-    let params = `page=${page}&limit=10`
-    this._getList(params)
+    this._getList({
+      page : 1,
+      limit : 10
+    })
   }
 
   to(){
@@ -56,35 +61,43 @@ class Essence extends Component {
     })
   }
 
-  _getList(params){
-    const { getList } = this.props.actions;
-    const { data } = this.props.Essence
-    if(data && data.length && page == 1) return;
-    getList(params)
+  _getList({page,limit}){
+    const { actions } = this.props;
+    console.log(arguments)
+    actions.getList({
+      page,
+      limit
+    })
   }
 
   _onReached (){
+    const { Essence } = this.props;
+    console.log(Essence)
+    if(Essence.page==1) return;
+
     const { isDownLoad } = this.props.actions;
     isDownLoad(true);
-    let params = `page=${++page}&limit=10`
-    this._getList(params,()=>{
-      isDownLoad(false)
-    });
+    this._getList({
+      page : Essence.page
+    })
   }
 
-  _loadData (){
-    let params = `page=${page}&limit=10`
-    return this._getList(params)
+  _onRefresh (){
+    const { actions } = this.props;
+    actions.getList({
+      page : 1,
+      limit : 10
+    })
   }
 
   render (){
-    const { data , downLoadStatus} = this.props.Essence;
+    const { data , downLoadStatus , page , getTopicsIsPending} = this.props.Essence;
     return (
       <View style={[styles.container]}>
         {
           data ?
           <ListView
-            dataSource={ds.cloneWithRows(data)}
+            dataSource={ds.cloneWithRows(data || [])}
             renderRow={this._renderRow.bind(this)}
             initialListSize={10}
             onEndReached={this._onReached.bind(this)}
@@ -92,16 +105,22 @@ class Essence extends Component {
             pageSize={3}
             showsVerticalScrollIndicator={true}
             removeClippedSubviews={true}
-            pagingEnabled={true}
-            loadData={this._loadData.bind(this)}
-            refreshDescription="正在加载..."
-
-            renderFooter={null}
+            enableEmptySections={true}
+            refreshControl={
+              <RefreshControl
+                refreshing={getTopicsIsPending || false}
+                onRefresh={this._onRefresh}
+                tintColor="#ff0000"
+                title="Loading..."
+                colors={['#ff0000', '#00ff00', '#0000ff']}
+                progressBackgroundColor="#ffff00"
+              />
+            }
           /> :
           null
         }
         {
-          downLoadStatus ?
+          getTopicsIsPending && page != 1 ?
           <View
             style={[styles.loadTips]}
           >
