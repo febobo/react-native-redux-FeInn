@@ -11,7 +11,7 @@ import {
   TextInput,
   ScrollView,
   DeviceEventEmitter,
-  RefreshControl
+  RefreshControl,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';

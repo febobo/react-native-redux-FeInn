@@ -90,7 +90,7 @@ class Login extends Component {
           </View>
           <View style={styles.userName}>
             {
-              0 && User && User.success ?
+              User && User.success ?
               <Text style={{textAlign:'center',color:textColor,fontSize:16}}>{User.data.loginname}</Text> :
               <TouchableOpacity onPress={this.login.bind(this)}>
               <Text style={{textAlign:'center',color:textColor,fontSize:16}}>登陆</Text>
