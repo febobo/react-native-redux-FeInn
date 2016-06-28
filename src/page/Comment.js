@@ -12,6 +12,7 @@ import {
   ScrollView,
   DeviceEventEmitter,
   RefreshControl,
+  Keyboard
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -34,8 +35,8 @@ class Comment extends Component {
     super(props);
     this.state = {textInput: ''};
     this._onRefresh = this._onRefresh.bind(this);
-    this.keyboardWillShowEvent = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
-		this.keyboardWillHideEvent = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+    this.keyboardWillShowEvent = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
+		this.keyboardWillHideEvent = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
   }
 
   componentWillMount(){
@@ -138,7 +139,6 @@ class Comment extends Component {
       replyId : row.id,
       userName : User.data.loginname
     } ,()=>{
-      console.log('okkok111')
     });
   }
 
@@ -168,7 +168,6 @@ class Comment extends Component {
     })();
 
     const { Comment , navigator , User} = this.props;
-    console.log(this)
     return (
       <View style={[styles.container]}>
         <View style={[styles.commentHeader]}>
