@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     flex : 1,
     position:'absolute',
     left : 20,
-    bottom : 25,
+    bottom : Platform.OS == 'ios' ? 25 : 50,
   },
 })
 

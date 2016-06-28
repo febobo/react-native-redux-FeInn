@@ -218,7 +218,8 @@ const styles = StyleSheet.create({
     // lineHeight :40,
     fontSize : 15,
     paddingHorizontal : 3,
-    color :'#333'
+    color :'#333',
+    marginLeft : 5
   },
   userImgWrap : {
     flex : 8,
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
     flex : 1,
     position:'absolute',
     left : 20,
-    bottom : 25,
+    bottom : Platform.OS == 'ios' ? 25 : 50,
   },
 })
 
