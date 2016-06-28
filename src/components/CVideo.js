@@ -7,7 +7,8 @@ import  {
 	Text,
 	Dimensions,
 	Animated,
-  TouchableOpacity
+  TouchableOpacity,
+	Image
 } from 'react-native';
 
 import Video from 'react-native-video';
@@ -21,9 +22,6 @@ class CVideo extends Component {
     }
   }
 
-	componentWillMount (){
-
-	}
   renderStopIcon (){
       return (
         <Icon
@@ -49,6 +47,7 @@ class CVideo extends Component {
     const { row } = this.props;
     return(
       <TouchableOpacity style={styles.backgroundVideo} onPress={() => {this.setState({paused: !this.state.paused})}}>
+				<Image style={styles.backgroundVideo} source={{uri: row.video_uri}} >
         <Video source={{uri: row.video_uri}}
                rate={1.0}
                volume={1.0}
@@ -61,6 +60,7 @@ class CVideo extends Component {
                style={styles.backgroundVideo}
                onEnd={() => { console.log('done') }}
          />
+				 </Image>
          {
             this.state.paused ?
             this.renderStartIcon() :
