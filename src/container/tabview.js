@@ -95,7 +95,6 @@ export default class TabView extends Component {
     }else{
       return (
         <TabNavigator
-          sceneStyle={styles.tabbarAndroid}
           tabBarStyle={styles.tabbarAndroid}
         >
           <TabNavigator.Item
@@ -103,13 +102,13 @@ export default class TabView extends Component {
             title="精选"
             renderIcon={() => <Icon
                       name='ios-home-outline'
-                      size={ 30 }
+                      size={ 18 }
                       color='#000'
                    />}
             renderSelectedIcon={() => <Icon
                       name='ios-home'
-                      size={ 30 }
-                      color='#000'
+                      size={ 18 }
+                      color='rgb(0,122,255)'
                    />}
             onPress={()=>{tabChange('essence')}}>
             <View style={{flex:1}}><Essence {...this.props} /></View>
@@ -119,13 +118,13 @@ export default class TabView extends Component {
             title="发现"
             renderIcon={() => <Icon
                       name='ios-eye-outline'
-                      size={ 30 }
+                      size={ 18 }
                       color='#000'
                    />}
             renderSelectedIcon={() => <Icon
                       name='ios-eye'
-                      size={ 30 }
-                      color='#000'
+                      size={ 18 }
+                      color='rgb(0,122,255)'
                    />}
             onPress={()=>{tabChange('article')}}>
             <View style={{flex:1}}><Article {...this.props} /></View>
@@ -135,13 +134,13 @@ export default class TabView extends Component {
             title="福利"
             renderIcon={() => <Icon
                       name='ios-heart-outline'
-                      size={ 30 }
+                      size={ 18 }
                       color='#000'
                    />}
             renderSelectedIcon={() => <Icon
                       name='ios-heart'
-                      size={ 30 }
-                      color='#000'
+                      size={ 18 }
+                      color='rgb(0,122,255)'
                    />}
             onPress={()=>{tabChange('welfare')}}>
             <View style={{flex:1}}><Welfare {...this.props} /></View>
@@ -151,13 +150,13 @@ export default class TabView extends Component {
             title="我的"
             renderIcon={() => <Icon
                       name='ios-person-outline'
-                      size={ 30 }
+                      size={ 18 }
                       color='#000'
                    />}
             renderSelectedIcon={() => <Icon
                       name='ios-person'
-                      size={ 30 }
-                      color='#000'
+                      size={ 18 }
+                      color='rgb(0,122,255)'
                    />}
             onPress={this.goSetting.bind(this)} >
             <View style={{flex:1}}></View>
@@ -178,6 +177,9 @@ export default class TabView extends Component {
 
 const styles = StyleSheet.create({
 	tabbarAndroid: {
-		// flex: 1,
+    height : 65,
+    paddingTop : 5,
+    backgroundColor : '#e5e5e5',
+    paddingBottom : 25
 	}
 });

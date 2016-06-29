@@ -7,7 +7,8 @@ import {
   Image,
   Dimensions,
   ListView,
-  RefreshControl
+  RefreshControl,
+  Platform
 } from 'react-native';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -108,7 +109,7 @@ const { width , height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container : {
     flex : 1,
-    paddingBottom : 45
+    paddingBottom : Platform.OS =='ios' ? 45 : 0
   },
   videoWrap : {
     padding : 10,

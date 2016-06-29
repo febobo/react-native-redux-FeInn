@@ -5,6 +5,8 @@
 # Xcode
 #
 build/
+android/app/build.gradle
+my-release-key.keystore
 *.pbxuser
 !default.pbxuser
 *.mode1v3

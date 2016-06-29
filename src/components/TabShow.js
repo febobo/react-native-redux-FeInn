@@ -3,7 +3,8 @@ import {
 	StyleSheet,
 	Dimensions,
 	View,
-  TouchableOpacity
+  TouchableOpacity,
+	Platform
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     flex : 1,
     position:'absolute',
     left : 20,
-    bottom : 25,
+    bottom : Platform.OS == 'ios' ? 25 : 50,
   },
 	returnIcon: {
 		flex: 1,

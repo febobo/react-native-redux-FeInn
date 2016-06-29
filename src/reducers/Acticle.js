@@ -4,7 +4,6 @@ import * as types from '../actions/actionTypes';
 export default function Acticle (state={page:1,limit:10,photos:[]} , action={}){
   const { payload ,error , meta={}} = action;
   const { sequence ={} } = meta;
-  console.log(state, action)
   switch (action.type) {
     case types.GET_PHOTO:
 

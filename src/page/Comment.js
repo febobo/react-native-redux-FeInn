@@ -11,7 +11,9 @@ import {
   TextInput,
   ScrollView,
   DeviceEventEmitter,
-  RefreshControl
+  RefreshControl,
+  Keyboard,
+  Platform
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -34,8 +36,8 @@ class Comment extends Component {
     super(props);
     this.state = {textInput: ''};
     this._onRefresh = this._onRefresh.bind(this);
-    this.keyboardWillShowEvent = DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
-		this.keyboardWillHideEvent = DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+    this.keyboardWillShowEvent = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
+		this.keyboardWillHideEvent = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
   }
 
   componentWillMount(){
@@ -138,7 +140,6 @@ class Comment extends Component {
       replyId : row.id,
       userName : User.data.loginname
     } ,()=>{
-      console.log('okkok111')
     });
   }
 
@@ -168,7 +169,6 @@ class Comment extends Component {
     })();
 
     const { Comment , navigator , User} = this.props;
-    console.log(this)
     return (
       <View style={[styles.container]}>
         <View style={[styles.commentHeader]}>
@@ -332,13 +332,14 @@ class Comment extends Component {
 }
 
 const avatarWidth = 40;
-const headerHeight = 65;
+const headerHeight = Platform.OS == 'ios' ? 65 : 45;
 const {height, width} = Dimensions.get('window');
-const commentHeight = height - headerHeight - avatarWidth - 20
+const startBar = Platform.OS == 'ios' ? 20 : 40;
+const commentHeight = height - headerHeight - avatarWidth - startBar;
 // const { width , height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container : {
-    height : height - headerHeight - avatarWidth
+    height : height - headerHeight - avatarWidth,
   },
   commentList : {
     height : commentHeight
@@ -349,7 +350,7 @@ const styles = StyleSheet.create({
   commentBox : {
     padding:10,
     height : 60,
-    flexDirection : 'row'
+    flexDirection : 'row',
   },
   replyBtn : {
     paddingTop : 5,
@@ -370,7 +371,7 @@ const styles = StyleSheet.create({
   },
   commentHeader : {
     height : headerHeight,
-    paddingTop:20,
+    paddingTop: Platform.OS == 'ios' ? 20 : 0,
     flexDirection : 'row',
     backgroundColor : '#333',
     alignItems : 'center',
@@ -379,7 +380,7 @@ const styles = StyleSheet.create({
   returnBtn : {
     position : 'absolute',
     left : 10,
-    top : 35
+    top : Platform.OS == 'ios'  ? 35 : 15
   },
   wrapStyle : {
     flex : 1,

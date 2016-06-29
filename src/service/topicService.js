@@ -27,7 +27,6 @@ export function getTopics({page,limit}){
   let url = `/topics?page=${page}&limit=${slimit}`;
   return requestService.get(url).then( data =>{
     if(data.success){
-      console.log(data)
       return data
     }else{
       throw 'do get topics failed'

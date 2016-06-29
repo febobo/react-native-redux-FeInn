@@ -21,19 +21,4 @@ export const getList = createAction(types.INDEX_LIST , topicService.getTopics , 
   page,
   limit
 },resolved ,rejected) => {
-  console.log(resolved)
 })
-// // 首页列表
-// export function getList(params , cb){
-//   return (dispatch , getState) => {
-//     fetch('https://cnodejs.org/api/v1/topics?' + params)
-//     .then(res => res.json())
-//     .then(json =>{
-//       cb && cb();
-//       dispatch(essenceList(json.data , getState))
-//     })
-//     .catch( msg =>{
-//       console.log(msg)
-//     })
-//   }
-// }

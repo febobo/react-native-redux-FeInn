@@ -9,7 +9,8 @@ import {
   NavigatorIOS,
   ListView,
   Image,
-  RefreshControl
+  RefreshControl,
+  Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
@@ -202,7 +203,7 @@ var indicatorStylesheet = StyleSheet.create({
 const styles = StyleSheet.create({
   container : {
     flex : 1,
-    paddingBottom:48,
+    paddingBottom: Platform.OS == 'ios' ? 48 : 20,
     paddingVertical : 5
   },
   loadTips :{

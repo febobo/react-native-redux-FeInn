@@ -90,7 +90,7 @@ class Login extends Component {
           </View>
           <View style={styles.userName}>
             {
-              0 && User && User.success ?
+              User && User.success ?
               <Text style={{textAlign:'center',color:textColor,fontSize:16}}>{User.data.loginname}</Text> :
               <TouchableOpacity onPress={this.login.bind(this)}>
               <Text style={{textAlign:'center',color:textColor,fontSize:16}}>登陆</Text>
@@ -218,7 +218,8 @@ const styles = StyleSheet.create({
     // lineHeight :40,
     fontSize : 15,
     paddingHorizontal : 3,
-    color :'#333'
+    color :'#333',
+    marginLeft : 5
   },
   userImgWrap : {
     flex : 8,
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
     flex : 1,
     position:'absolute',
     left : 20,
-    bottom : 25,
+    bottom : Platform.OS == 'ios' ? 25 : 50,
   },
 })
 
