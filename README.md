@@ -3,6 +3,10 @@
 [![GitHub stars](https://img.shields.io/github/stars/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/network)
 [![GitHub issues](https://img.shields.io/github/issues/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/issues)
+### DownLoad
+
+目前[android](https://www.pgyer.com/eKLJ) 已经打一个内测包，图片跟视频那一块在android上表现不是太好，会持续跟大家一块优化下去
+![image](https://cloud.githubusercontent.com/assets/9276376/16449708/932578b4-3e2b-11e6-90a9-cad36f671267.png)
 
 ### About
 FeInn 致力于让每一个愿意动手的人都能徒手写APP  
@@ -56,7 +60,10 @@ or ```$ open FeInn.xcodeproj```,then click run
 ```
 $ react-native run-android
 ```
-![使用Navigator](http://g.recordit.co/tAi48R0pYO.gif)![image](https://cloud.githubusercontent.com/assets/9276376/16170534/bfa72d3e-3588-11e6-83b9-25b7789ff2d2.png)![image](https://cloud.githubusercontent.com/assets/9276376/16331877/8d26f0d2-3a25-11e6-8326-f0396d10f363.png)
+![image](https://cloud.githubusercontent.com/assets/9276376/16449584/efbbdc68-3e2a-11e6-922c-4201c9f2c899.png)![image](https://cloud.githubusercontent.com/assets/9276376/16449603/033a4126-3e2b-11e6-8219-9f740a8bc6a2.png)![image](https://cloud.githubusercontent.com/assets/9276376/16449630/25d12c90-3e2b-11e6-880d-f1a6502de3bf.png)![image](https://cloud.githubusercontent.com/assets/9276376/16449639/32a47620-3e2b-11e6-95aa-657eaa386403.png)
+
+
+
 
 
 ### PS
