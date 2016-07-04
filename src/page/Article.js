@@ -26,6 +26,13 @@ class Article extends Component {
     this.loadList()
   }
 
+  shouldComponentUpdate(nextProps){
+    if(nextProps.Acticle.photos == this.props.Acticle.photos){
+      return false
+    }
+    return true
+  }
+
   loadList (){
     const { actions , Acticle } = this.props;
     actions.getPhoto({
@@ -54,15 +61,17 @@ class Article extends Component {
 
   render (){
     const { Acticle } = this.props;
+    console.log(Acticle)
     return (
       <View style={[styles.container]}>
-      {
-        Acticle && Acticle.photos && Acticle.photos.length !=0 ?
+
         <ScrollView style={{flex:1}}
           onScroll={this._onScroll}
+          initialListSize={1}
+          pageSize={1}
           refreshControl={
             <RefreshControl
-              refreshing={Acticle.getPhotosIsPending || false}
+              refreshing={Acticle.getPhotosIsPending}
               onRefresh={this._onRefresh}
               tintColor="#ff0000"
               title="Loading..."
@@ -71,7 +80,8 @@ class Article extends Component {
             />
           }
         >
-
+        {
+          Acticle && Acticle.photos && Acticle.photos.length !=0 ?
           <View style={styles.imgsWrap}>
             <View style={styles.imgs}>
               {this._renderImg(Acticle.photos.slice(0,Acticle.photos.length/2))}
@@ -80,11 +90,16 @@ class Article extends Component {
               {this._renderImg(Acticle.photos.slice(Acticle.photos.length/2,Acticle.photos.length))}
             </View>
           </View>
-        </ScrollView> :
-        <View style={{flexDirection:'row',paddingTop:30,alignItems : 'center',justifyContent : 'center'}}>
-          <Text style={{fontSize:20}}>说好的妹子呢</Text>
-        </View>
-      }
+          : null
+
+        }
+        {
+            Acticle && Acticle.getPhotosIsPending == false && Acticle.photos.length == 0 ?
+            <View style={{flexDirection:'row',paddingTop:30,alignItems : 'center',justifyContent : 'center'}}>
+              <Text style={{fontSize:20}}>说好的妹子呢</Text>
+            </View> :null
+        }
+        </ScrollView>
       </View>
     )
   }
@@ -143,6 +158,7 @@ class Article extends Component {
               <Image
                 style={{width:width/2,height:parseInt(Math.random() * (width/4) + (width/2))}}
                 source={{uri : v.url}}
+                defaultSource={require('../public/defaultImg.png')}
               />
             </LightBox>
           </TouchableOpacity>
@@ -155,6 +171,7 @@ const { width , height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container : {
     flex : 1,
+    paddingBottom : 50
     // alignItems : 'center',
     // justifyContent : 'center',
     // backgroundColor : 'blue'

@@ -71,6 +71,7 @@ class Detail extends Component {
               <Image
                 style={styles.authorImg}
                 source={{uri : data.author.avatar_url}}
+                defaultSource={require('../public/defaultImg.png')}
               />
             </View>
             <View
@@ -126,6 +127,7 @@ const defaultMaxImageWidth = width - 30 - 20;
 const styles = StyleSheet.create({
   container : {
     flex : 1,
+    paddingBottom:Platform.OS == 'ios' ? 0 : 50,
   },
   wrapStyle : {
     flex : 1,
