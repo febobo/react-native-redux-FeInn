@@ -148,6 +148,7 @@ class Essence extends Component {
         <Image
           style={styles.article}
           source={{uri: rowData.author.avatar_url}}
+          defaultSource={require('../public/defaultImg.png')}
         />
         <View
           style={styles.content}

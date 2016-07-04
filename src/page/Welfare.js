@@ -27,6 +27,13 @@ class Welfare extends Component {
     this.loadList();
   }
 
+  shouldComponentUpdate(nextProps){
+    if(nextProps.Welfare.videos == this.props.Welfare.videos){
+      return false
+    }
+    return true
+  }
+
   loadList (){
     const { actions , Welfare } = this.props;
     actions.getVideo({
@@ -40,6 +47,7 @@ class Welfare extends Component {
   }
 
   _onEndReached (){
+    console.log(1)
     const { actions , Welfare } = this.props;
     actions.getVideo({
       page : Welfare.page+1,
@@ -81,8 +89,8 @@ class Welfare extends Component {
         <ListView
           dataSource={ds.cloneWithRows(Welfare.videos || [])}
           renderRow={this.renderVideoRow}
-          pageSize={3}
-          initialListSize={3}
+          pageSize={1}
+          initialListSize={1}
           onEndReached={this._onEndReached}
           onEndReachedThreshold={0}
           removeClippedSubviews={true}
@@ -114,7 +122,8 @@ const styles = StyleSheet.create({
   videoWrap : {
     padding : 10,
     borderBottomWidth : 1,
-    borderColor : '#eee'
+    borderColor : '#eee',
+    overflow:'hidden'
   },
   userImg : {
     width : userImg,

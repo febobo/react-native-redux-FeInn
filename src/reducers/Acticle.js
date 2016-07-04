@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';
 
 
-export default function Acticle (state={page:1,limit:10,photos:[]} , action={}){
+export default function Acticle (state={page:1,limit:10,photos:[],getPhotosIsPending:true} , action={}){
   const { payload ,error , meta={}} = action;
   const { sequence ={} } = meta;
   switch (action.type) {

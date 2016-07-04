@@ -81,10 +81,12 @@ class Login extends Component {
               <Image
                 style={[styles.userImg]}
                 source={{uri : User.data.avatar_url}}
+                defaultSource={require('../public/defaultImg.png')}
               /> :
               <Image
                 style={[styles.userImg]}
-                source={{uri : 'http://test.imgs.wn518.com/upimages/ys-sales/2016-03-29/87e08bb58a0a9b57bcd035fbf6bb4e02_1_0_0_420_420_1.jpg'}}
+                source={require('../public/defaultImg.png')}
+
               />
             }
           </View>

@@ -1,9 +1,16 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "filename" : "favicon.png",
+      "size" : "72x72",
+      "idiom" : "ipad",
+      "filename" : "favicon@1x-1.png",
       "scale" : "1x"
+    },
+    {
+      "size" : "72x72",
+      "idiom" : "ipad",
+      "filename" : "favicon@2x-1.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
