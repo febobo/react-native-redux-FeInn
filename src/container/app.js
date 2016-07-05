@@ -12,6 +12,7 @@ import * as FeInnAppPage from './index';
 import connectComponent from '../utils/connectComponent';
 const FeInnApp = connectComponent(FeInnAppPage);
 import Icon from 'react-native-vector-icons/Ionicons';
+var WeChat=require('react-native-wechat');
 
 const logger = createLogger({
 	predicate: (getState, action) => false,
@@ -42,6 +43,20 @@ export default class App extends Component {
     this.state = {
       selectedTab: 'home',
     };
+  }
+
+	async componentDidMount (){
+		console.log(1)
+    try {
+      await WeChat.registerApp('wxb3b6cb97e4c0afbf');
+      this.apiVersion = await WeChat.getApiVersion();
+      this.wxAppInstallUrl = await WeChat.getWXAppInstallUrl();
+      this.isWXAppSupportApi = await WeChat.isWXAppSupportApi();
+      this.isWXAppInstalled = await WeChat.isWXAppInstalled();
+      console.log(this)
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   render (){
