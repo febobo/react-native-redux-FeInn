@@ -14,6 +14,10 @@ const Comment = connectComponent(CommentPage);
 
 export default class TabShow extends Component {
 	_onPress() {
+		if(this.props.onPress){
+			this.props.onPress();
+			return
+		}
     const { navigator , pageFlag ,aid} = this.props
     if(pageFlag == 'comment'){
       return navigator.push({

@@ -18,12 +18,17 @@ import Html from '../utils/Html';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import TabShow from '../components/TabShow';
+import RNWechat from '../components/RNWechat';
+// import WeChat from 'react-native-wechat';
+var WeChat=require('react-native-wechat')
+
 import { randomBg } from '../utils';
 
 
 class Detail extends Component {
   constructor (props){
     super(props);
+    this.share = this.share.bind(this);
   }
 
   componentWillMount(){
@@ -35,6 +40,33 @@ class Detail extends Component {
   componentWillUnmount(){
     const { actions } = this.props;
     actions.clearCacheDetail();
+  }
+
+  async componentDidMount(){
+
+  }
+
+  async share (){
+
+    console.log(222,this);
+    WeChat.isWXAppInstalled()
+      .then((isInstalled) => {
+        if (isInstalled) {
+          WeChat.shareToTimeline({
+            title:'微信朋友圈测试链接',
+            description: '分享自:FeInn',
+            thumbImage: 'https://cloud.githubusercontent.com/assets/9276376/16579772/ea862048-42d3-11e6-99a9-ebdd3d42f735.png',
+            type: 'news',
+            webpageUrl: 'https://github.com/febobo/react-native-redux-FeInn'
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+        } else {
+          console.log('没有安装微信软件，请您安装微信之后再试');
+        }
+    });
+
   }
 
   render (){
@@ -58,6 +90,7 @@ class Detail extends Component {
         />
       )
     })();
+
 
     return (
       <View style={[styles.container]}>
@@ -109,6 +142,10 @@ class Detail extends Component {
         content={pointContent}
         wrapStyle={styles.wrapStyle}
        />
+       <RNWechat
+          share={this.share}
+          ref={ view => this.RNWechat = view}
+       />
        <TabShow {...this.props}
          content={commentContent}
          wrapStyle={styles.commentWrapStyle}
@@ -145,6 +182,12 @@ const styles = StyleSheet.create({
     flex : 1,
     position:'absolute',
     right : 20,
+    bottom : Platform.OS == 'ios' ? 25 : 50,
+  },
+  shareWrapStyle : {
+    flex : 1,
+    position:'absolute',
+    left : width/2 - 20,
     bottom : Platform.OS == 'ios' ? 25 : 50,
   },
   authorImg: {
