@@ -19,7 +19,7 @@ FeInn 致力于让每一个愿意动手的人都能徒手写APP
 - [x] 使用TabBarIos
 - [x] 使用Fetch
 - [x] 使用ListView
-- [ ] 增加qq,微信第3方分享功能
+- [x] 增加qq,微信第3方分享功能
 - [x] 支持图片瀑布流浏览
 - [x] 增加视频音频播放功能
 
@@ -34,6 +34,7 @@ FeInn 致力于让每一个愿意动手的人都能徒手写APP
 * [FeInn-v0.0.8 兼容Android](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.8) 
 * [FeInn-v0.0.9 RN升级到0.28,增加视频播放](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.0.9) 
 * [FeInn-v0.1.0 个人中心完善](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.1.0) 
+* [FeInn-v0.1.1 增加微信分享](https://github.com/febobo/react-native-redux-FeInn/tree/FeInn-v0.1.1)
 
 ### Requirements
 * node  
@@ -54,7 +55,8 @@ use xcode open react-native-redux-es6/ios/demo.xcodeproj, then click run
 or ```$ open FeInn.xcodeproj```,then click run  
 
 
-![使用Navigator](http://g.recordit.co/u0VZC4PtNb.gif)![使用Navigator](http://g.recordit.co/k7ZiADqslL.gif)![video](http://g.recordit.co/jXF5deeLUn.gif)![setting](http://g.recordit.co/r5SADHAH43.gif)
+![使用Navigator](http://g.recordit.co/u0VZC4PtNb.gif)![使用Navigator](http://g.recordit.co/k7ZiADqslL.gif)![video](http://g.recordit.co/jXF5deeLUn.gif)![setting](http://g.recordit.co/r5SADHAH43.gif)![share](http://recordit.co/Eh0dJNSCCQ.gif)![wechatShare](https://cloud.githubusercontent.com/assets/9276376/16606651/3ae79ba0-436c-11e6-9222-bab4a724f4eb.png)
+
 
 ### For Android 
 ```
