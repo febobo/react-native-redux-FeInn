@@ -1,6 +1,7 @@
 package com.feinn;
 
 import com.facebook.react.ReactActivity;
+import com.theweflex.react.WeChatPackage;
 // import com.brentvatne.RCTVideo.ReactVideoPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -40,6 +41,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new WeChatPackage(),
             new ReactVideoPackage(),
             new VectorIconsPackage(),
             new RCTCameraPackage(),

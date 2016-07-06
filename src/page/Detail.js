@@ -18,12 +18,20 @@ import Html from '../utils/Html';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import TabShow from '../components/TabShow';
+import RNWechat from '../components/RNWechat';
+// import WeChat from 'react-native-wechat';
+var WeChat=require('react-native-wechat')
+
 import { randomBg } from '../utils';
 
 
 class Detail extends Component {
   constructor (props){
     super(props);
+    this.share = this.share.bind(this);
+    this.state = {
+      showShare : false
+    }
   }
 
   componentWillMount(){
@@ -36,6 +44,15 @@ class Detail extends Component {
     const { actions } = this.props;
     actions.clearCacheDetail();
   }
+  share (){
+    this.setState({
+      showShare:!this.state.showShare
+    })
+    setTimeout( ()=>{
+      this.RNWechat && this.RNWechat.show()
+    },100)
+  }
+
 
   render (){
     const { data } = this.props.Detail;
@@ -58,11 +75,20 @@ class Detail extends Component {
         />
       )
     })();
-
+    const shareContent = (()=>{
+      return (
+        <Icon
+          name={this.state.showShare ? 'md-close' :'md-share'}
+          size={ 30 }
+          color='rgba(255,255,255,1)'
+        />
+      )
+    })();
     return (
       <View style={[styles.container]}>
+
       <ScrollView>
-      <View style={[styles.container]}>
+      <View>
         {
           data && data.id?
           <View >
@@ -115,6 +141,17 @@ class Detail extends Component {
          pageFlag={'comment'}
          aid={data && data.id}
         />
+        {
+          this.state.showShare ?
+          <RNWechat
+            ref={view => this.RNWechat = view}
+          /> :null
+        }
+        <TabShow {...this.props}
+          content={shareContent}
+          onPress={this.share}
+          wrapStyle={styles.shareWrapStyle}
+         />
       </View>
     )
   }
@@ -145,6 +182,12 @@ const styles = StyleSheet.create({
     flex : 1,
     position:'absolute',
     right : 20,
+    bottom : Platform.OS == 'ios' ? 25 : 50,
+  },
+  shareWrapStyle : {
+    flex : 1,
+    position:'absolute',
+    left : width/2 - 20,
     bottom : Platform.OS == 'ios' ? 25 : 50,
   },
   authorImg: {
