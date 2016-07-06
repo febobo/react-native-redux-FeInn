@@ -12,7 +12,8 @@ import * as FeInnAppPage from './index';
 import connectComponent from '../utils/connectComponent';
 const FeInnApp = connectComponent(FeInnAppPage);
 import Icon from 'react-native-vector-icons/Ionicons';
-var WeChat=require('react-native-wechat');
+// var WeChat=require('react-native-wechat');
+import * as WeChat from "react-native-wechat"
 
 const logger = createLogger({
 	predicate: (getState, action) => false,
@@ -46,7 +47,6 @@ export default class App extends Component {
   }
 
 	async componentDidMount (){
-		console.log(1)
     try {
       await WeChat.registerApp('wxb3b6cb97e4c0afbf');
       this.apiVersion = await WeChat.getApiVersion();
