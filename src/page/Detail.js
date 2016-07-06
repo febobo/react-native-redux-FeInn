@@ -29,6 +29,9 @@ class Detail extends Component {
   constructor (props){
     super(props);
     this.share = this.share.bind(this);
+    this.state = {
+      showShare : false
+    }
   }
 
   componentWillMount(){
@@ -42,7 +45,12 @@ class Detail extends Component {
     actions.clearCacheDetail();
   }
   share (){
-    this.RNWechat && this.RNWechat.show()
+    this.setState({
+      showShare:!this.state.showShare
+    })
+    setTimeout( ()=>{
+      this.RNWechat && this.RNWechat.show()
+    },100)
   }
 
 
@@ -70,7 +78,7 @@ class Detail extends Component {
     const shareContent = (()=>{
       return (
         <Icon
-          name={'md-share'}
+          name={this.state.showShare ? 'md-close' :'md-share'}
           size={ 30 }
           color='rgba(255,255,255,1)'
         />
@@ -123,7 +131,6 @@ class Detail extends Component {
         }
       </View>
       </ScrollView>
-
       <TabShow {...this.props}
         content={pointContent}
         wrapStyle={styles.wrapStyle}
@@ -134,9 +141,12 @@ class Detail extends Component {
          pageFlag={'comment'}
          aid={data && data.id}
         />
-        <RNWechat
-          ref={view => this.RNWechat = view}
-        />
+        {
+          this.state.showShare ?
+          <RNWechat
+            ref={view => this.RNWechat = view}
+          /> :null
+        }
         <TabShow {...this.props}
           content={shareContent}
           onPress={this.share}

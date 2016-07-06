@@ -227,6 +227,7 @@ class Comment extends Component {
             <Image
               style={[styles.article,styles.authorHeader]}
               source={{uri : User.data.avatar_url}}
+              defaultSource={require('../public/defaultImg.png')}
             />
             <View style={{flex:1}}>
               <TextInput
