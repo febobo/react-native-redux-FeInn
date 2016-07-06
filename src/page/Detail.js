@@ -42,31 +42,9 @@ class Detail extends Component {
     actions.clearCacheDetail();
   }
   share (){
-    console.log(22)
-    this.showShare = !this.showShare
+    this.RNWechat && this.RNWechat.show()
   }
-  // async shares (){
-  //
-  //   console.log(222,this);
-  //   WeChat.isWXAppInstalled()
-  //     .then((isInstalled) => {
-  //       if (isInstalled) {
-  //         WeChat.shareToTimeline({
-  //           title:'微信朋友圈测试链接',
-  //           description: '分享自:FeInn',
-  //           thumbImage: 'https://cloud.githubusercontent.com/assets/9276376/16579772/ea862048-42d3-11e6-99a9-ebdd3d42f735.png',
-  //           type: 'news',
-  //           webpageUrl: 'https://github.com/febobo/react-native-redux-FeInn'
-  //         })
-  //         .catch((error) => {
-  //           console.log(error.message);
-  //         });
-  //       } else {
-  //         console.log('没有安装微信软件，请您安装微信之后再试');
-  //       }
-  //   });
-  //
-  // }
+
 
   render (){
     const { data } = this.props.Detail;
@@ -89,11 +67,10 @@ class Detail extends Component {
         />
       )
     })();
-
     const shareContent = (()=>{
       return (
         <Icon
-          name='md-share'
+          name={'md-share'}
           size={ 30 }
           color='rgba(255,255,255,1)'
         />
@@ -146,24 +123,25 @@ class Detail extends Component {
         }
       </View>
       </ScrollView>
-      <RNWechat
-        ref={view => this.RNWechat = view}
-      />
+
       <TabShow {...this.props}
         content={pointContent}
         wrapStyle={styles.wrapStyle}
        />
-       <TabShow {...this.props}
-         content={shareContent}
-         onPress={this.share}
-         wrapStyle={styles.shareWrapStyle}
-        />
        <TabShow {...this.props}
          content={commentContent}
          wrapStyle={styles.commentWrapStyle}
          pageFlag={'comment'}
          aid={data && data.id}
         />
+        <RNWechat
+          ref={view => this.RNWechat = view}
+        />
+        <TabShow {...this.props}
+          content={shareContent}
+          onPress={this.share}
+          wrapStyle={styles.shareWrapStyle}
+         />
       </View>
     )
   }

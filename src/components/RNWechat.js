@@ -7,63 +7,127 @@ import {
   ScrollView,
   Image,
   Platform,
-  Dimensions
+  Dimensions,
+  TouchableOpacity,
+  Alert
 } from 'react-native';
-
-import Icon from 'react-native-vector-icons/Ionicons';
-import TabShow from '../components/TabShow';
-
-var WeChatRegister;
+var WeChat=require('react-native-wechat');
 export default class WNWechat extends Component {
 
   constructor(props){
     super(props);
+    this.shareToTimeline = this.shareToTimeline.bind(this);
+    this.shareToSession = this.shareToSession.bind(this);
+    this.state = {
+      showShare : false
+    }
   }
 
+  show(){
+    this.setState({
+      showShare : !this.state.showShare
+    })
+  }
 
-  render(){
+  async shareToSession (){
+    WeChat.isWXAppInstalled()
+      .then((isInstalled) => {
+        if (isInstalled) {
+          WeChat.shareToSession({
+            title:'一边泡Cnode社区，一边看美女，还有更多搞笑视频，尽在FeInn',
+            description: '分享自:FeInn',
+            thumbImage: 'http://p2.wmpic.me/article/2016/07/05/1467705190_DyyYACab_215x185.jpg',
+            type: 'news',
+            webpageUrl: 'https://github.com/febobo/react-native-redux-FeInn'
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+        } else {
+          Alert.alert(
+                     '提示',
+                     '没有安装微信软件，请您安装微信之后再试',
+                   )
+        }
+    });
+  }
 
-    const shareContent = (()=>{
-      return (
-        <Icon
-          name='md-share'
-          size={ 30 }
-          color='rgba(255,255,255,1)'
-        />
-      )
-    })();
+  async shareToTimeline (){
+    WeChat.isWXAppInstalled()
+      .then((isInstalled) => {
+        if (isInstalled) {
+          WeChat.shareToTimeline({
+            title:'一边泡Cnode社区，一边看美女，还有更多搞笑视频，尽在FeInn',
+            description: '分享自:FeInn',
+            thumbImage: 'http://p2.wmpic.me/article/2016/07/05/1467705190_DyyYACab_215x185.jpg',
+            type: 'news',
+            webpageUrl: 'https://github.com/febobo/react-native-redux-FeInn'
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+        } else {
+          Alert.alert(
+                     '提示',
+                     '没有安装微信软件，请您安装微信之后再试',
+                   )
+        }
+    });
+  }
 
+  renderContent(){
     return (
       <View style={styles.wrap}>
-      <View style={styles.mask}></View>
-      <View style={styles.shareWrap}>
-        <View style={styles.title}>
-          <Text style={{fontSize:20,color:'#fff',textAlign:'center'}}>推荐给朋友</Text>
-        </View>
-        <View style={styles.content}>
-          <View
-            style={styles.iconWrap}
-          >
-            <Image
-              style={styles.shareIcon}
-              source={require('../public/wechat.png')}
-            />
-            <Text style={styles.icondir}>微信好友</Text>
+        <View style={styles.mask}></View>
+        <View style={styles.shareWrap}>
+          <View style={styles.title}>
+            <Text style={{fontSize:20,color:'#fff',textAlign:'center'}}>推荐给朋友</Text>
           </View>
-          <View
-            style={styles.iconWrap}
-          >
-            <Image
-              style={styles.shareIcon}
-              source={require('../public/wechattimeline.png')}
-            />
-            <Text style={styles.icondir}>微信朋友圈</Text>
+          <View style={styles.content}>
+            <TouchableOpacity
+              onPress={this.shareToSession}
+              style={{flex:1}}
+            >
+              <View
+                style={styles.iconWrap}
+              >
+                <Image
+                  style={styles.shareIcon}
+                  source={require('../public/wechat.png')}
+                />
+                <Text style={styles.icondir}>微信好友</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this.shareToTimeline}
+              style={{flex:1}}
+            >
+              <View
+                style={styles.iconWrap}
+              >
+                <Image
+                  style={styles.shareIcon}
+                  source={require('../public/wechattimeline.png')}
+                />
+                <Text style={styles.icondir}>微信朋友圈</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
-
-      </View>
       </View>
 
+    )
+  }
+
+  render(){
+    return (
+      <View style={styles.wrap}>
+        {
+          this.state.showShare ?
+          this.renderContent()
+          : null
+        }
+      </View>
     )
   }
 }
