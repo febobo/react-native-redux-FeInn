@@ -3,10 +3,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/network)
 [![GitHub issues](https://img.shields.io/github/issues/febobo/react-native-redux-FeInn.svg)](https://github.com/febobo/react-native-redux-FeInn/issues)
-### DownLoad
-
-目前[android](https://www.pgyer.com/eKLJ) 已经打一个内测包，图片跟视频那一块在android上表现不是太好，会持续跟大家一块优化下去
-[![image](https://cloud.githubusercontent.com/assets/9276376/16449708/932578b4-3e2b-11e6-90a9-cad36f671267.png)](https://www.pgyer.com/eKLJ)
 
 ### About
 FeInn 致力于让每一个愿意动手的人都能徒手写APP  
