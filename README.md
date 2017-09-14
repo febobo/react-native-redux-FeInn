@@ -65,7 +65,7 @@ $ react-native run-android
 
 
 ### PS
-#### 仓库会持续更新，欢迎提出您宝贵的建议共同成长
+#### 仓库已经不再维护，仅供学习交流
 
 ### THX 
 [noder](https://github.com/soliury/noder-react-native)
